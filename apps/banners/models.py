@@ -17,7 +17,7 @@ class Banner(models.Model):
     
     contenido   = models.TextField(verbose_name=_(u'Contenido'), help_text=_(u'Contenido'), blank=True)
     posicion    = models.CharField(verbose_name=_(u'Posición'), max_length=2, choices=GENDER_CHOICES, help_text=_(u'Lugar donde aparecerá el banner'))
-    imagen      = ImageField(verbose_name=_(u'Imagen'), upload_to='banners', blank=True, help_text=_(u'Dimensiones de Imagen Banner Index: AAAxBBB - Dimensiones de Imagen Banner Lateral: ancho m&aacute;ximo AAApx'))
+    imagen      = ImageField(verbose_name=_(u'Imagen'), upload_to='banners', help_text=_(u'Dimensiones de Imagen Banner Index: AAAxBBB - Dimensiones de Imagen Banner Lateral: ancho m&aacute;ximo AAApx'))
     url         = models.URLField(verbose_name=_(u'URL'), verify_exists=False, blank=True, null=True,help_text=_(u'URL del banner'))
     orden       = models.IntegerField(_(u'Orden'), default=0, help_text=_(u'Orden en el que se mostrará'))
 

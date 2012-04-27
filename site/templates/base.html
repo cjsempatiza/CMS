@@ -15,10 +15,10 @@
 
     <title>{% block title %}{{ conf.titulo }}{% endblock %}</title>
 </head>
-<body>
-<div id="arriba">
-    <div class="container">
-	<h1>
+<body>                
+<div id="arriba">                      
+    <div class="container">        
+	<h1>                           
             <a href="{% url index %}">
                 <img src="{{ conf.logo.url }}"  alt="{{ conf.titulo }}" />
                 <span>{{ conf.titulo }}</span>
@@ -29,7 +29,7 @@
 </div> <!-- END #arriba -->
 
 
-<div id="cuerpo">
+<div id="cuerpo">   
     <div class="container">
         <div id="izquierda">
                 <h2>{{ conf.cat1_nombre }}</h2>
