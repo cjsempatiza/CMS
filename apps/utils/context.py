@@ -99,7 +99,8 @@ def context(request):
         cache.set('banners', banners, CACHE_EXPIRES)
         
     pie = Pagina.objects.filter(es_activo=True, en_pie=True)
-	
+    
+    cabeza = Pagina.objects.filter(es_activo=True, en_cabeza=True)
 
     try:
         contact = ContactConfig.objects.get()
@@ -110,6 +111,7 @@ def context(request):
         'site'          : current_site,
         'conf'          : conf,
         'pie'           : pie,
+        'cabeza'        : cabeza,
         
         # Menu izquierda
         'cat1'          : cat1,

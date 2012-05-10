@@ -117,9 +117,9 @@ INSTALLED_APPS = (
 )
 
 WEB_TEMPLATES = (
-    ('web/categoria_1.html', u'Categoría Sup'),
-    ('web/categoria_2.html', u'Categoría Media'),
-    ('web/categoria_3.html', u'Categoría Inf'),
+    ('web/categoria_1.html', u'Categoria Main'),
+    ('web/categoria_2.html', u'Servicios Destacados'),
+    ('web/categoria_3.html', u'Nuestros Valores'),
     ('web/seccion.html', u'Sección'),
     ('web/pagina.html', u'Página'),
     ('web/estatica.html', u'Estática'),

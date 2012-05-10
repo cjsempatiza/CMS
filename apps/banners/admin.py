@@ -14,7 +14,7 @@ class ModelAdmin(AdminImageMixin, admin.ModelAdmin):
     pass
 
 class BannerAdmin(ModelAdmin):
-    list_display = ('img_thumb', 'nombre', 'posicion', 'es_activo', 'actualizado_el', 'creado_el')
+    list_display = ('img_thumb', 'nombre', 'posicion', 'pagina', 'es_activo', 'actualizado_el', 'creado_el')
     list_display_links = ('img_thumb', 'nombre',)
 
     class Media:

@@ -39,7 +39,8 @@ urlpatterns = patterns('',
     url(r'^clientes/$', 'web.views.clientes', name='clientes',),
     url(r'^proyectos/$', 'web.views.proyectos', name='proyectos',),
     url(r'^proyectos/(?P<slug_proy>[^/]+)/$', 'web.views.proyecto_detail', name='proyecto_detail',),
+    url(r'^tutoriales/$', 'web.views.tutoriales', name='tutoriales_list',),
+    url(r'^tutoriales/(?P<tag_fil>\w+)*/$', 'web.views.tutoriales', name='tutoriales',),
     url(r'^sitemap.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
     url(r'^(?P<path>.*)/$', 'web.views.paginas', name='page'),
-
 )

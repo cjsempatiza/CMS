@@ -5,25 +5,46 @@
 {% endblock %}
 
 {% block content %}
-<div class="centro_fondo">
-    <div id="centro">
-        <div id="slides">
-                <div class="slides_container">
-                    {% for s in slides %}
-                    <div>
-                            {% if s.titulo %}{{ s.titulo }}{% endif %}
-                            {% if s.imagen %}<img src="{{ s.imagen.url }}" alt="s.titulo" />{% endif %}
-                            {% if s.contenido %}
-                                <div class="texto">
-                                    {{ s.contenido|safe }}
-                                    {% if s.enlace %}<a href="{{ s.enlace }}" class="boton boton_azul">{{ s.enlace_texto }}</a>{% endif %}
-                                </div>
-                            {% endif %}
-                            {% if s.video %}{% endif %}
+
+<div id="slides" class='container'>
+    <div class="slides_container">
+        {% for s in slides %}
+        <div class='contenido'>
+                {% if s.imagen %}<img src="{{ s.imagen.url }}" alt="s.titulo" />{% endif %}
+                <div class='titulo'>{% if s.titulo %}{{ s.titulo }}{% endif %}</div>
+                {% if s.contenido %}
+                    <div class="texto">
+                        {{ s.contenido|safe }}
+                        {% if s.enlace %}
+                        	<a href="{{ s.enlace }}" class="boton">{{ s.enlace_texto }}</a>
+                        {% endif %}
                     </div>
-                    {% endfor %}
-                </div>
+                {% endif %}
+                {% if s.video %}{% endif %}
         </div>
+        {% endfor %}
     </div>
 </div>
+
+<div id='cuerpo-home' class='container'>
+	
+	<div class='mitad'>
+		<span class='titulo'>servicios destacados</span>
+		
+		{% for serv in servicios_portada %}
+		<div class='item'>
+			<p class='tit'>{{serv.titulo}}</p>
+			 {% if serv.main_image %}<img src="{{ serv.main_image.imagen.url }}" alt="{{ serv.main_image.titulo }}" >{% endif %}
+			{{serv.resumen|safe}}
+		</div>
+		{% endfor %}
+		
+	</div>
+	
+	
+	<div class='mitad'>
+		<span class='titulo'>nuestros valores</span>
+	</div>
+</div>
+
 {% endblock %}

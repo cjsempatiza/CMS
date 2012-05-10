@@ -1,3 +1,5 @@
+{% load thumbnail %}
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es">
 <head>
@@ -8,77 +10,131 @@
 
     <link rel="stylesheet" href="{{ STATIC_URL }}css/reset.css">
     <link rel="stylesheet" href="{{ STATIC_URL }}css/sempatiza_styles.css">
-    <link href='http://fonts.googleapis.com/css?family=Love+Ya+Like+A+Sister' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Lekton:400,700,400italic' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Quattrocento+Sans:400,700' rel='stylesheet' type='text/css'>   
     <link rel="shortcut icon" href="{{ conf.favicon.url }}">
+    
+	<script type="text/javascript">
+	  window.___gcfg = {lang: 'es'};
+	
+	  (function() {
+	    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+	    po.src = 'https://apis.google.com/js/plusone.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+	  })();
+	</script>
+	
+	<div id="fb-root"></div>
+	<script>(function(d, s, id) {
+	  var js, fjs = d.getElementsByTagName(s)[0];
+	  if (d.getElementById(id)) return;
+	  js = d.createElement(s); js.id = id;
+	  js.src = "//connect.facebook.net/es_ES/all.js#xfbml=1&appId=231533796857282";
+	  fjs.parentNode.insertBefore(js, fjs);
+	  }(document, 'script', 'facebook-jssdk'));</script>
 
     <title>{% block title %}{{ conf.titulo }}{% endblock %}</title>
 </head>
-<body>                
-<div id="arriba">                      
-    <div class="container">        
-	<h1>                           
-            <a href="{% url index %}">
-                <img src="{{ conf.logo.url }}"  alt="{{ conf.titulo }}" />
-                <span>{{ conf.titulo }}</span>
-            </a>
-        </h1>
-        <p>{{ conf.eslogan }}</p>
-    </div> <!-- END .container -->
-</div> <!-- END #arriba -->
+<body>
 
+<div id='sombras'>
+	
+<div id='cabecera' class='container'>
+	<h1>                           
+        <a href="{% url index %}">
+            <img src="{{ conf.logo.url }}"  alt="{{ conf.titulo }}" />
+            <span>{{ conf.titulo }}</span>
+        </a>
+    </h1>
+    <p>{{ conf.eslogan }}</p>
+    
+    <div id='cab-right'>
+    	<div id='social-like'>
+    		<ul>
+    			<li class='fb'>
+    				<div class="fb-like" data-href="http://{{ site.domain }}" data-send="false" data-layout="button_count" data-width="120" data-show-faces="false"></div>
+    			</li>
+    			<li class='gplus'><g:plusone size="medium" annotation="none"></g:plusone></li>  			
+    		</ul>
+   		</div>
+      	<div class='clear'></div>
+      	<div id='menu-cab'>
+	    	<ul>
+	    		<li><a href="{{ conf.blog }}">Blog</a></li>
+		    	{% for pagina in cabeza %}
+		        <li><a href="{{ pagina.get_absolute_url }}">{{ pagina.cabeza_nombre }}</a></li>
+		        {% endfor %}
+			</ul>
+		</div>
+	</div>
+	
+	<div class='telefono'>
+		{{ conf.telefono }}
+	</div>
+	
+</div>
+
+
+<div id='menu-main' class='container'>
+	<!--<h2>{{ conf.cat1_nombre }}</h2>-->
+    <ul>
+    {% for categoria in cat1 %}
+    
+            <li><a href="{{ categoria.get_absolute_url }}"><span>{{ categoria.menu_nombre }}</span></a>
+                {% if categoria.menu_hijos %}
+                <ul class='menu-main-sub'>
+                    {% for hijo in categoria.menu_hijos %}
+                    <li><a href="{{ hijo.get_absolute_url }}">{{ hijo.menu_nombre }}</a></li>
+                    {% endfor %}                    
+                    
+                    {% if categoria.main_banner %}
+                    <li class='graf'>
+                    	<span class='graf-txt'>
+                        {{ categoria.main_banner.contenido|safe }}
+                        </span>
+                        
+                        {% thumbnail categoria.main_banner.imagen "75x84" as img %}
+                        <img src="{{ img.url }}" alt="{{ categoria.main_banner.nombre }}" width="{{ img.width }}" height="{{ img.height }}" />
+                        {% endthumbnail %}
+                        <a class='boton' href="{{ pagina.main_banner.url }}">{{ categoria.main_banner.subtitulo }}</a>
+                    </li>
+                    {% endif %}
+                    
+                </ul>
+                {% endif %}
+            </li>
+    {% endfor %}
+    </ul>
+</div>
+
+{% block content %}{% endblock %}
+
+<div id="pie">
+	{# Social #}
+   	<div id="social">
+        <ul>
+            {% for s in social %}
+            <li><a href="{{ s.enlace }}" onclick="{{ s.enlace_analytics }}"><img src="{{ s.imagen.url }}" alt="{{ s.nombre }}" /></a></li>
+            {% endfor %}
+        </ul>
+    </div>
+    
+    <div id='menu-pie'>
+		<ul>
+            {% for pagina in pie %}
+            <li><a href="{{ pagina.get_absolute_url }}">{{ pagina.pie_nombre }}</a></li>
+            {% endfor %}
+        </ul>   
+    </div>    
+</div><!-- END #pie -->
+
+</div>
+
+<!--- xxx --->
 
 <div id="cuerpo">   
     <div class="container">
-        <div id="izquierda">
-                <h2>{{ conf.cat1_nombre }}</h2>
-                <ul>
-                {% for categoria in cat1 %}
-                        <li><a href="{{ categoria.get_absolute_url }}"><span>{{ categoria.menu_nombre }}</span></a>
-                            {% if categoria.menu_hijos %}
-                            <ul>
-                                {% for hijo in categoria.menu_hijos %}
-                                <li><a href="{{ hijo.get_absolute_url }}">{{ hijo.menu_nombre }}</a></li>
-                                {% endfor %}
-                            </ul>
-                            {% endif %}
-                        </li>
-                {% endfor %}
-                </ul>
+   
 
-                <h2>{{ conf.cat2_nombre }}</h2>
-                <ul>
-                {% for categoria in cat2 %}
-                        <li><a href="{{ categoria.get_absolute_url }}"><span>{{ categoria.menu_nombre }}</span></a>
-                            {% if categoria.menu_hijos %}
-                            <ul>
-                                {% for hijo in categoria.menu_hijos %}
-                                <li><a href="{{ hijo.get_absolute_url }}">{{ hijo.menu_nombre }}</a></li>
-                                {% endfor %}
-                            </ul>
-                            {% endif %}
-                        </li>
-                {% endfor %}
-                </ul>
-
-                <h2>{{ conf.cat3_nombre }}</h2>
-                <ul>
-                {% for categoria in cat3 %}
-                        <li><a href="{{ categoria.get_absolute_url }}"><span>{{ categoria.menu_nombre }}</span></a>
-                            {% if categoria.destacados_productos %}
-                            <ul>
-                                {% for producto in categoria.destacados_productos %}
-                                <li><a href="{{ producto.get_absolute_url }}">{{ producto.nombre }}</a></li>
-                                {% endfor %}
-                            </ul>
-                            {% endif %}
-                        </li>
-                {% endfor %}
-                </ul>
-        </div>
-
-        {% block content %}{% endblock %}
+        
 
         <div id="derecha">
             {# Banners #}
@@ -137,32 +193,38 @@
     </div><!-- END .container -->
 </div><!-- END #cuerpo -->
 
-<div id="abajo">
-    <div class="container">
-	<ul>
-            <li><a href="{% url contact %}">Contacto</a></li>
-            {% for pagina in pie %}
-            <li><a href="{{ pagina.get_absolute_url }}">{{ pagina.pie_nombre }}</a></li>
-            {% endfor %}
-        </ul>
-    <span>© Sempatiza | {{ conf.direccion }} {{ conf.codigo_postal }} - {{ conf.ciudad }}</span>
-    </div><!-- END .container -->
-</div><!-- END #abajo -->
 
-<script type="text/JavaScript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+
+<script type="text/JavaScript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script type="text/JavaScript" src="{{ STATIC_URL }}js/slides.min.jquery.js"></script>
 <script type="text/JavaScript" src="{{ STATIC_URL }}js/functions.js"></script>
 <script type="text/JavaScript">
     $(function(){
-            $('#slides').slides({
-                    preload: true,
-                    generateNextPrev: false,
-                    preload: true,
-                    preloadImage: '{{ STATIC_URL }}img/loading.gif',
-                    play: {{ conf.tiempo_diapositivas }},
-                    pause: 2500
-            });
+        $('#slides').slides({
+                preload: true,
+                generateNextPrev: false,
+                preloadImage: '{{ STATIC_URL }}img/loading.gif',
+                play: {{ conf.tiempo_diapositivas }},
+                pause: 500
+		});
+		
+		$('.menu-main-sub').hide();
+		var fMenuMainOn = function(){
+			$('#menu-main ul > li > a').removeClass('current');
+			$(this).addClass('current');
+			$(this).find('a:first').addClass('current');
+			
+			$('.menu-main-sub').hide();
+			$(this).find('ul:first').show();
+		};		
+	
+		$('#menu-main > ul > li').mouseover( fMenuMainOn );
+		$('.menu-main-sub').mouseleave(function(){
+			$('.menu-main-sub').fadeOut();
+			$('#menu-main ul > li > a').removeClass('current');
+		});
     });
+
 
     $(document).ready(function(){
         $(".contacto_rapido").show();

@@ -68,6 +68,8 @@ class Pagina(models.Model):
     pie_nom     = models.CharField(_(u'Nombre en pie'), max_length=255, blank=True, null=True)
     
     es_activo   = models.BooleanField(_(u'Activo'), default=True, help_text=_(u'Determina si se muestra en el sitio'))
+    en_portada  = models.BooleanField(_(u'En portada'), help_text=_(u'Determina si se muestra en la portada'))
+    
     creado_el           = models.DateTimeField(_(u'Creado el'), editable=False, auto_now_add=True)
     actualizado_el      = models.DateTimeField(_(u'Actualizado el'), editable=False, auto_now=True)
     
@@ -76,6 +78,9 @@ class Pagina(models.Model):
     
     PAGE_URL_KEY        = "page_%d"
     _complete_slug      = None # caché de instancia
+    
+    def es_portada(self):
+        return self.filter(en_portada=True)
     
     def _get_mainImage(self):
         img = False
@@ -87,6 +92,28 @@ class Pagina(models.Model):
         return img
 
     main_image = property(_get_mainImage)
+    
+    def _get_mainHeader(self):
+        img = False
+        try:
+            img = self.images.filter(es_cabecera=True).order_by('-orden')[0]
+        except:
+            pass
+        
+        return img
+    
+    main_header = property(_get_mainHeader)
+    
+    def _get_mainBanner(self):
+        banner  = False
+        try:
+            banner      = self.banner_set.filter(es_activo=True, posicion='M').order_by('-orden')[0]
+        except:
+            pass
+        
+        return banner
+        
+    main_banner = property(_get_mainBanner)
 
     def _get_gallery(self):
         gal = False
@@ -171,6 +198,7 @@ class ImagenPagina(models.Model):
     imagen      = ImageField(_(u'Imagen'), upload_to='web/pagina')
     titulo      = models.CharField(verbose_name=_(u'Título'), max_length=120, unique=True, help_text=_(u'Título de la imagen'))
     descripcion = models.TextField(_(u'Descripción'), help_text=_(u'Descripción de la imagen'), blank=True, null=True)
+    es_cabecera = models.BooleanField(_(u'Cabecera'), default=False, help_text=_(u'Indica si la imagen se utilizará como cabecera de la página'))
 
     class Meta:
         verbose_name = _(u'Imagen de página')
@@ -184,6 +212,7 @@ class VideoPagina(models.Model):
     video       = models.CharField(verbose_name=_(u'Codigo del video'), max_length=256, help_text=_(u'ID del código del video'))
     titulo      = models.CharField(verbose_name=_(u'Título'), max_length=120, unique=True, help_text=_(u'Título del video'))
     descripcion = models.TextField(_(u'Descripción'), help_text=_(u'Descripción del video'), blank=True, null=True)
+    tags        = models.CharField(verbose_name=_(u'Tags'), max_length=100, help_text=_(u'Tags separados por comas'))
 
     class Meta:
         verbose_name = _(u'Video de página')

@@ -3,6 +3,7 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from sorl.thumbnail import ImageField
+from web.models import Pagina
 from django.contrib.contenttypes.models import ContentType
 
 # Create your models here.
@@ -10,6 +11,7 @@ class Banner(models.Model):
     GENDER_CHOICES = (
         ('Id', 'Banner Index'),
         ('In', 'Banner Interior'),
+        ('M', 'Menú'),
     )
     
     nombre      = models.CharField(verbose_name=_(u'Nombre'), max_length=60, help_text=_(u'Nombre - Max 60'))
@@ -26,6 +28,8 @@ class Banner(models.Model):
     actualizado_el      = models.DateTimeField(_(u'Actualizado el'), editable=False, auto_now=True)
 
     real_type   = models.ForeignKey(ContentType, editable=False, null=True)
+    
+    pagina      = models.ForeignKey(Pagina, verbose_name=_(u'Página'), blank=True)
     
     class Meta:
         verbose_name = _(u'Banner')

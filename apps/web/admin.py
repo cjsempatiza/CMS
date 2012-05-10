@@ -47,7 +47,7 @@ class ImagenPaginaInline(admin.TabularInline):
     extra = 0
     verbose_name = _(u'Imagen de página')
 
-class VideoPaginaInline(admin.TabularInline):
+class VideoPaginaInline(admin.StackedInline):
     model = VideoPagina
     extra = 0
     verbose_name = _(u'Video de página')
@@ -59,7 +59,7 @@ class ArchivoPaginaInline(admin.TabularInline):
 
 class PaginaAdmin(editor.TreeEditor):
     form = PaginaAdminForm
-    list_display = ('nombre', 'plantilla', 'es_activo', 'en_menu', 'en_cabeza', 'en_pie', 'created_at_short', 'updated_at_short',)
+    list_display = ('nombre', 'plantilla', 'es_activo', 'en_portada', 'en_menu', 'en_cabeza', 'en_pie', 'created_at_short', 'updated_at_short',)
     list_display_links = ('nombre',)
     ordering = ['parent', 'lft', 'nombre']
     search_fields = ('nombre', 'titulo',)
@@ -67,7 +67,7 @@ class PaginaAdmin(editor.TreeEditor):
     prepopulated_fields = {'slug': ('nombre',)}
     
     fieldsets = [
-        (None, {'fields': [('nombre', 'titulo'), 'slug', 'plantilla', 'parent', 'es_activo',]}),
+        (None, {'fields': [('nombre', 'titulo'), 'slug', 'plantilla', 'parent', 'es_activo', 'en_portada']}),
         ('Contenido', {'fields': ['resumen', 'contenido']}),
         ('Botón de página', {
                         'classes': ('collapse',),

@@ -89,6 +89,10 @@ def index(request):
     # Diapositivas
     slides      = Slider.objects.filter(es_activo=True).order_by('orden')
     
+    #portada: servicios y valores    
+    servicios_portada = Pagina.objects.filter(es_activo=True, plantilla='web/categoria_2.html', en_portada=True).order_by('tree_id')    
+    valores_portada = Pagina.objects.filter(es_activo=True, plantilla='web/categoria_3.html', en_portada=True).order_by('tree_id')
+    
     ## Categorías de la tienda
     #try:
         #cat_shop= Category.objects.filter(es_activo=True, en_menu=True).order_by('tree_id')
@@ -105,7 +109,7 @@ def index(request):
     #pag         = Pagina.objects.filter(es_activo=True, en_menu=True, plantilla='web/pagina.html').order_by('tree_id')
     
     ## Redes sociales
-    #social      = RedSocial.objects.filter(es_activo=True).order_by('orden')
+    social      = RedSocial.objects.filter(es_activo=True).order_by('orden')
 
     ## Banners
     #banners     = Banner.objects.filter(es_activo=True, posicion="Id").order_by('orden')
@@ -115,12 +119,14 @@ def index(request):
                             'object'    : object,
                             'metatags'  : metas,
                             'slides'    : slides,
+                            'servicios_portada' : servicios_portada,
+                            'valores_portada'   : valores_portada,
                             'quick_form': form,
                             #'cat_shop'  : cat_shop,
                             #'cat'       : cat,
                             #'sec'       : sec,
                             #'pag'       : pag,
-                            #'social'    : social,
+                            'social'    : social,
                             #'banners'    : banners
                             },
                             context_instance = RequestContext(request))
@@ -156,12 +162,25 @@ def paginas(request, path):
     else:
         mapa    = False
         pr_list = False
+        
+    # Recuperar páginas de la misma categoría para menú lateral
+    #if object.plantilla == 'web/seccion.html':
+    #    try:
+    #        plantilla = object.parent.plantilla
+    #    except:
+    #        pass
+    #    menu_paginas        = Pagina.objects.filter(es_activo=True, parent=None, plantilla=plantilla).order_by('tree_id')
+    #else:
+    #    menu_paginas        = Pagina.objects.filter(es_activo=True, parent=None, plantilla=object.plantilla).order_by('tree_id')
+    
+    menu_paginas        = Pagina.objects.filter(es_activo=True, parent=None, plantilla='web/categoria_1.html').order_by('tree_id')
 
     return render_to_response(object.plantilla, {
             'object'    : object,
             'metas'     : metainfo,
             'mapa'      : mapa,
             'pr_list'   : pr_list,
+            'menu_paginas'  : menu_paginas,
            },
            context_instance = RequestContext(request))
 
@@ -243,3 +262,22 @@ def error(request, error_code):
 
     response.status_code = error_code
     return response
+    
+def tutoriales(request, tag_fil = None):
+    '''
+    Vista de listado de tutoriales
+    '''
+    
+    if tag_fil == None :
+      object_list = VideoPagina.objects.all()
+    else:
+      object_list = VideoPagina.objects.filter(tags__contains=tag_fil)
+
+    if not object_list.exists():
+        return error_404(request)
+
+    return render_to_response("web/tutorial_list.html",
+                                {
+                                'object_list'   : object_list,
+                                },
+                                context_instance = RequestContext(request))
