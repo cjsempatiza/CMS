@@ -44,7 +44,66 @@
 	
 	<div class='mitad'>
 		<span class='titulo'>nuestros valores</span>
+		
+		{% for valor in valores_portada %}
+		<div class='item'>
+			<p class='tit'>{{valor.titulo}}</p>
+			 {% if valor.main_image %}<img src="{{ valor.main_image.imagen.url }}" alt="{{ valor.main_image.titulo }}" >{% endif %}
+			{{valor.resumen|safe}}
+		</div>
+		{% endfor %}
 	</div>
+	
+	<div class='clear'></div>
+	
+	<div class='mitad2'>
+		<span class='titulo'>nuestros clientes nos avalan</span>
+		<div id='clientes-list'>
+			<ul>
+				{% for cli in lista_cli %}
+					<li><a href='{{cli.url}}'><img src='{{cli.logo.url}}'/></a></li>
+				{% endfor %}
+			</ul>
+		</div>
+		
+		<div class='caja-gris'>
+			<span class='titulo'>nuestro blog</span>
+			<div class='cont'>
+				blog
+			</div>
+			{% comment %}
+			{% load i18n feeds %}			
+			<div class='cont'>
+			    {% if conf.blog_rss %}
+			        {% with conf.blog_rss as rss %}
+		            {% include_feed rss 1 blog.html %}
+		        {% endwith %}
+			</div>
+			{% endif %}
+			{% endcomment %}
+		</div>
+		
+	</div>
+	
+	<div class='mitad2'>
+		<span class='titulo'>testimonios</span>		
+		<div id="home-testimonios">
+			<div class='cont'>
+				<ul>
+					{% for testi in lista_testi %}
+					<li>
+						<img src="{{testi.imagen.url}}" />
+						<span class='titulo'>{{testi.nombre}}</span>
+						<span class='titulo'>{{testi.categoria.nombre}}</span>
+						<span class='texto'>{{testi.comentario|safe}}</span>
+					</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+	</div>
+	
+	<div class='clear'></div>	
 </div>
 
 {% endblock %}

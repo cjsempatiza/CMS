@@ -65,7 +65,7 @@ def context(request):
     # Páginas de categoría superior
     cat1        = cache.get('cat1')
     if cat1 is None:
-        cat1    = Pagina.objects.filter(es_activo=True, en_menu=True, plantilla='web/categoria_1.html').order_by('tree_id')
+        cat1    = Pagina.objects.filter(es_activo=True, en_menu=True, plantilla='web/categoria.html').order_by('tree_id')
         cache.set('cat1', cat1, CACHE_EXPIRES)
         
     # Páginas de categoría media

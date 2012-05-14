@@ -70,7 +70,7 @@ def index(request):
                                         #'mensaje'   : u'Quiero presupuestos para varios proyectos',
                                         'nombre'    : u'Nombre',
                                         'telefono'  : u'Teléfono',
-                                        'email'     : u'Correo Electrónico',
+                                        'email'     : u'E-mail',
                                         'mensaje'   : u'Me gustaría saber más información acerca de...',
                                 })
 
@@ -110,6 +110,9 @@ def index(request):
     
     ## Redes sociales
     social      = RedSocial.objects.filter(es_activo=True).order_by('orden')
+    
+    lista_cli    = Cliente.objects.filter(es_activo=True, en_portada=True).order_by('?')
+    lista_testi  = Testimonios.objects.filter(es_activo=True,en_portada=True).order_by('?')
 
     ## Banners
     #banners     = Banner.objects.filter(es_activo=True, posicion="Id").order_by('orden')
@@ -127,6 +130,8 @@ def index(request):
                             #'sec'       : sec,
                             #'pag'       : pag,
                             'social'    : social,
+                            'lista_cli'  : lista_cli,
+                            'lista_testi'  : lista_testi,
                             #'banners'    : banners
                             },
                             context_instance = RequestContext(request))

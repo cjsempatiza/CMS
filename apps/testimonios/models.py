@@ -43,5 +43,5 @@ class Testimonios(models.Model):
     def __unicode__(self):
         return u"%s" % self.nombre
 
-    def en_portada(self):
+    def es_portada(self):
         return self.filter(en_portada=True).order_by('orden')

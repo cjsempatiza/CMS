@@ -8,7 +8,9 @@
 <div class="cuerpo">
 	
 	<div id='cuerpo-banner' class='container'>
-		
+		{% if object.main_header %}<img src="{{ object.main_header.imagen.url }}" alt="object.main_header.titulo" />{% endif %}
+		<h1>{{object.main_header.titulo}}</h1>
+		<h2>{{object.main_header.descripcion|safe}}</h2>
 	</div>
 	
 	<div class='cuerpo_cont'>
@@ -22,13 +24,14 @@
 	        {% endfor %}
 	    </div>
 	    
-	    <div id='cat1-menu'>
+	    <div id='cat-menu'>
 	    	<ul>
     		{% for pagina in menu_paginas %}
+    			<li>
     			{% if pagina.get_absolute_url in request.path %}
-                <li><a class='current' href="{{ pagina.get_absolute_url }}">{{ pagina.nombre }}</a>
+                <a class='current' href="{{ pagina.get_absolute_url }}">{{ pagina.nombre }}</a>
                 {% else %}
-                <li><a href="{{ pagina.get_absolute_url }}">{{ pagina.nombre }}</a>
+                <a href="{{ pagina.get_absolute_url }}">{{ pagina.nombre }}</a>
                 {% endif %}
                 
 	                {% if pagina.get_absolute_url in request.path and pagina.hijos %}
@@ -42,12 +45,22 @@
             {% endfor %}
     		</ul>
 	    </div>
+	    
+	    <div id='cat-cont'>
+	    	 <h2>{{ object.titulo }}</h2>
+	    	 {{ object.contenido|safe }}
+	    </div>
 
+		<div id='cat-right'>
+			{{ object.VideoPagina.video }}
+		</div>	
 	        
     </div>
 	
 </div>
+{% endblock %}
 	
+	{% comment %}
     <div id="centro">
         {# <h1 class="h1_derecha"><strong><span class="azul">g</span><span class="rojo">o</span><span class="amarillo">o</span><span class="azul">g</span><span class="verde">l</span><span class="rojo">e</span> analytics</strong></h1> #}
         {% if object.main_image %}<img class="h1_derecha" src="{{ object.main_image.imagen.url }}" alt="{{ object.main_image.titulo }}" >{% endif %}
@@ -61,20 +74,10 @@
         <div class="texto">
             {{ object.contenido|safe }}
 
-            <div class="botonera">
-                <div>
-                        {% for pagina in object.hijos %}
-                        <a href="{{ pagina.get_absolute_url }}" class="boton boton_naranja">{{ pagina.nombre }}</a>
-                        {% endfor %}
-                        {% comment %}
-                        {% if object.get_previous_sibling %}<a href="{{ object.get_previous_sibling.get_absolute_url }}" class="boton boton_naranja boton_izquierda">{{ object.get_previous_sibling.nombre }}</a>{% endif %}
-                        {% if object.get_next_sibling %}<a href="{{ object.get_next_sibling.get_absolute_url }}" class="boton boton_naranja boton_derecha">{{ object.get_next_sibling.nombre }}</a>{% endif %}
-                        {% endcomment %}
-                </div>
+            
             </div><!-- END .botonera -->
         </div><!-- END .texto -->
 
 
     </div><!-- END centro -->
-
-{% endblock %}
+	{% endcomment %}

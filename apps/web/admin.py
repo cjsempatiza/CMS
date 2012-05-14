@@ -42,7 +42,7 @@ class HomeAdmin(admin.ModelAdmin):
               'js/editores.js')
 
 
-class ImagenPaginaInline(admin.TabularInline):
+class ImagenPaginaInline(admin.StackedInline):
     model = ImagenPagina
     extra = 0
     verbose_name = _(u'Imagen de página')
