@@ -25,6 +25,7 @@ class Configuracion(models.Model):
 
     blog        = models.URLField(verify_exists=False, blank=True, null=True,help_text=_(u'URL del blog'))
     blog_rss    = models.URLField(verify_exists=False, blank=True, null=True,help_text=_(u'URL RSS del blog'))
+    blog_rss2   = models.URLField(verify_exists=False, blank=True, null=True,help_text=_(u'URL RSS categoría del blog'))
     blog_entradas       = models.IntegerField(_('Entradas'), blank=True, null=True, default=5, help_text=_(u'El número de entradas del RSS que se mostrarán'))
 
     cat1_nombre = models.CharField(_(u'Menú superior'), default=_(u'Para los que saben lo que quieren...'), max_length=255, help_text=_(u'Nombre de la categoría superior del menú principal. 255 caracteres max.'))

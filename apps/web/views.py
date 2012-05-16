@@ -21,7 +21,7 @@ from django.core.mail import *
 from web.models import *
 from web.forms import *
 from slider.models import *
-from testimonios.models import *
+from testimonios.models import Testimonios
 from clientes.models import Cliente
 from proyectos.models import Proyecto
 from quienes.models import *
@@ -38,7 +38,6 @@ from contact.forms import ContactmeForm
 #template.add_to_builtins('web.templatetags.inclusion_tag')
 #template.add_to_builtins('configuracion.templatetags.conf_tags')
 #template.add_to_builtins('social.templatetags.red_social')
-
 
 def index(request):
     '''
@@ -87,11 +86,7 @@ def index(request):
         metas   = False
 
     # Diapositivas
-    slides      = Slider.objects.filter(es_activo=True).order_by('orden')
-    
-    #portada: servicios y valores    
-    servicios_portada = Pagina.objects.filter(es_activo=True, plantilla='web/categoria_2.html', en_portada=True).order_by('tree_id')    
-    valores_portada = Pagina.objects.filter(es_activo=True, plantilla='web/categoria_3.html', en_portada=True).order_by('tree_id')
+    slides      = Slider.objects.filter(es_activo=True).order_by('orden')  
     
     ## Categorías de la tienda
     #try:
@@ -112,8 +107,7 @@ def index(request):
     social      = RedSocial.objects.filter(es_activo=True).order_by('orden')
     
     lista_cli    = Cliente.objects.filter(es_activo=True, en_portada=True).order_by('?')
-    lista_testi  = Testimonios.objects.filter(es_activo=True,en_portada=True).order_by('?')
-
+    
     ## Banners
     #banners     = Banner.objects.filter(es_activo=True, posicion="Id").order_by('orden')
 
@@ -122,8 +116,6 @@ def index(request):
                             'object'    : object,
                             'metatags'  : metas,
                             'slides'    : slides,
-                            'servicios_portada' : servicios_portada,
-                            'valores_portada'   : valores_portada,
                             'quick_form': form,
                             #'cat_shop'  : cat_shop,
                             #'cat'       : cat,
@@ -131,7 +123,6 @@ def index(request):
                             #'pag'       : pag,
                             'social'    : social,
                             'lista_cli'  : lista_cli,
-                            'lista_testi'  : lista_testi,
                             #'banners'    : banners
                             },
                             context_instance = RequestContext(request))
@@ -178,14 +169,32 @@ def paginas(request, path):
     #else:
     #    menu_paginas        = Pagina.objects.filter(es_activo=True, parent=None, plantilla=object.plantilla).order_by('tree_id')
     
-    menu_paginas        = Pagina.objects.filter(es_activo=True, parent=None, plantilla='web/categoria_1.html').order_by('tree_id')
-
+    menu_paginas    = Pagina.objects.filter(es_activo=True, parent=None, plantilla='web/categoria.html').order_by('tree_id')
+   
+    try:
+        cat_testi   = object.testimonios_set.filter(es_activo=True).order_by('orden')
+    except:
+        cat_testi = None
+    
+    try:
+        video = object.videos.all()[0]
+    except:
+         video = None
+         
+    try:
+        main_testi = object.testimonios_set.all()[0]
+    except:
+        main_testi = None
+    
     return render_to_response(object.plantilla, {
-            'object'    : object,
-            'metas'     : metainfo,
-            'mapa'      : mapa,
-            'pr_list'   : pr_list,
-            'menu_paginas'  : menu_paginas,
+            'object'            : object,
+            'metas'             : metainfo,
+            'mapa'              : mapa,
+            'pr_list'           : pr_list,
+            'menu_paginas'      : menu_paginas,
+            'cat_testi'         : cat_testi,
+            'video'             : video,
+            'main_testi'        : main_testi,
            },
            context_instance = RequestContext(request))
 
@@ -239,6 +248,20 @@ def clientes(request):
                                 },
                                 context_instance = RequestContext(request))
 
+def testimonios(request):
+    '''
+    Vista de listado de testimonios
+    '''
+
+    object_list = Testimonios.objects.filter(es_activo=True)
+    if not object_list.exists():
+        return error_404(request)
+
+    return render_to_response("web/testimonios.html",
+                                {
+                                    'object_list'   : object_list,
+                                },
+                                context_instance = RequestContext(request))
 
 def error_404(request):
     return error(request, error_code=404)

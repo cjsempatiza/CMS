@@ -60,7 +60,7 @@ function validate_rapido(){
             $(".contacto_rapido #id_email").css({'border':'0px'});
         }
     }
-    if($(".contacto_rapido #id_condiciones").attr("checked") != true)
+    if($(".contacto_rapido #id_condiciones").attr("checked") != 'checked')
     {
         $(".contacto_rapido #label_condiciones").css({'border':'1px solid red'});
         chk = false

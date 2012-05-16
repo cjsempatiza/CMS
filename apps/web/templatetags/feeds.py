@@ -15,6 +15,8 @@ from django.template.loader import render_to_string
 
 from template_utils.nodes import ContextUpdatingNode
 
+from configuracion.models import Configuracion
+from django.http import HttpResponseServerError
 
 class FeedIncludeNode(template.Node):
     def __init__(self, feed_url, template_name, num_items=None):
@@ -23,10 +25,17 @@ class FeedIncludeNode(template.Node):
         self.template_name = template_name
 
     def render(self, context):
+        
+        try:
+            config    = Configuracion.objects.get()
+        except Configuracion.DoesNotExist: 
+            return HttpResponseServerError(u'Debe <a href="/admin/configuracion/configuracion/add/">configurar el sitio</a> en la administración.')
+
         feed_url = self.feed_url.resolve(context)
         feed = feedparser.parse(feed_url)
         items = []
-        num_items = int(self.num_items) or len(feed['entries'])
+        #num_items = int(self.num_items) or len(feed['entries'])
+        num_items = config.blog_entradas
         for i in range(num_items):
             pub_date = feed['entries'][i].updated_parsed
             published = datetime.date(pub_date[0], pub_date[1], pub_date[2])

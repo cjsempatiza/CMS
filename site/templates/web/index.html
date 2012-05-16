@@ -41,7 +41,6 @@
 		
 	</div>
 	
-	
 	<div class='mitad'>
 		<span class='titulo'>nuestros valores</span>
 		
@@ -59,28 +58,29 @@
 	<div class='mitad2'>
 		<span class='titulo'>nuestros clientes nos avalan</span>
 		<div id='clientes-list'>
-			<ul>
-				{% for cli in lista_cli %}
-					<li><a href='{{cli.url}}'><img src='{{cli.logo.url}}'/></a></li>
-				{% endfor %}
-			</ul>
+		<div class='boton prev'><</div>
+			<div id='clientes-list-c'>			
+				<ul>
+					{% for cli in lista_cli %}
+						<li><img src='{{cli.logo.url}}' title='{{cli.nombre}}' /></li>
+					{% endfor %}
+				</ul>			
+			</div>
+		<div class='boton next'>></div>
 		</div>
 		
 		<div class='caja-gris'>
 			<span class='titulo'>nuestro blog</span>
+						
+			{% load i18n feeds %}
+			{% if conf.blog_rss %}
 			<div class='cont'>
-				blog
-			</div>
-			{% comment %}
-			{% load i18n feeds %}			
-			<div class='cont'>
-			    {% if conf.blog_rss %}
-			        {% with conf.blog_rss as rss %}
+				{% with rss=conf.blog_rss %}
 		            {% include_feed rss 1 blog.html %}
 		        {% endwith %}
 			</div>
 			{% endif %}
-			{% endcomment %}
+			
 		</div>
 		
 	</div>
@@ -94,11 +94,15 @@
 					<li>
 						<img src="{{testi.imagen.url}}" />
 						<span class='titulo'>{{testi.nombre}}</span>
-						<span class='titulo'>{{testi.categoria.nombre}}</span>
+						<span class='titulo'>{{testi.categoria.nombre|upper}}</span>
 						<span class='texto'>{{testi.comentario|safe}}</span>
 					</li>
 					{% endfor %}
 				</ul>
+				<div class='clear'></div>
+				
+				<a href='/testimonios'  class='vertodos'>{ver todos}</a>
+				
 			</div>
 		</div>
 	</div>

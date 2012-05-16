@@ -47,12 +47,49 @@
 	    </div>
 	    
 	    <div id='cat-cont'>
-	    	 <h2>{{ object.titulo }}</h2>
-	    	 {{ object.contenido|safe }}
+	    	<div class='main'>
+	    	<h2>{{object.nombre}}</h2>
+	    	{{object.resumen|safe}}
+	    	</div>
+	    	
+    	 	{% for hijo in object.hijos %}
+                <h3>{{ hijo.nombre }}</h3>
+                {{hijo.resumen|safe}}
+                <p><a href='{{hijo.slug}}'>Descúbrelo</a></p>
+            {% endfor %}
+	    	 
 	    </div>
 
 		<div id='cat-right'>
-			{{ object.VideoPagina.video }}
+			<div id="cat-testimonios">
+				<div class='cont'>
+					<ul>
+						{% for testi in cat_testi %}
+						<li>
+							<img src="{{testi.imagen.url}}" />
+							<span class='titulo'>{{testi.nombre}}</span>
+							<span class='titulo'>{{testi.categoria.nombre|upper}}</span>
+							<span class='texto'>{{testi.comentario|safe}}</span>
+						</li>
+						{% endfor %}
+					</ul>
+				</div>
+				
+				<div class='clear'></div>				
+				<a href='/testimonios'  class='vertodos'>{ver todos}</a>
+				
+			</div>
+			<div class='clear'></div>
+			<div id="cat-valores">		
+				{% for valor in valores_portada %}
+				<div class='item'>
+					<p class='tit'>{{valor.titulo}}</p>
+					 {% if valor.main_image %}<img src="{{ valor.main_image.imagen.url }}" alt="{{ valor.main_image.titulo }}" >{% endif %}
+					{{valor.resumen|safe}}
+				</div>
+				{% endfor %}
+			</div>
+			
 		</div>	
 	        
     </div>

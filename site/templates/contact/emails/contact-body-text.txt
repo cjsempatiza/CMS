@@ -1,0 +1,13 @@
+Hola, {{ message.nombre }} acaba de enviar un mensaje.
+
+Nombre: {{ message.nombre }}
+Correo electrónico: {{ message.email }}
+Número de teléfono: {{ message.telefono }}
+
+{% if messaje.mensaje %}
+Contenido:
+{{ message.mensaje }}
+{% endif %}
+
+Atentamente {{ current_site.name }}
+http://www.{{ current_site.domain }}

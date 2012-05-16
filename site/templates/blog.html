@@ -1,0 +1,13 @@
+{% load cache %}
+{% cache 10 blog %}
+    <ul>
+        {% for entry in items %}
+            <li class="blog">
+            	<span class='blog-tit'>{{entry.title}}</span>
+            	<br/>
+            	{{entry.summary|safe|truncatechars:166 }}
+            	<br/><a href="{{entry.link}}">Descúbrelo</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endcache %}

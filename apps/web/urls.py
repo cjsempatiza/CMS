@@ -37,6 +37,7 @@ urlpatterns = patterns('',
 
     url(r'^$', 'web.views.index', name='index',),
     url(r'^clientes/$', 'web.views.clientes', name='clientes',),
+    url(r'^testimonios/$', 'web.views.testimonios', name='testimonios',),
     url(r'^proyectos/$', 'web.views.proyectos', name='proyectos',),
     url(r'^proyectos/(?P<slug_proy>[^/]+)/$', 'web.views.proyecto_detail', name='proyecto_detail',),
     url(r'^tutoriales/$', 'web.views.tutoriales', name='tutoriales_list',),

@@ -55,7 +55,29 @@
 	    </div>
 
 		<div id='cat-right'>
-			{{ object.VideoPagina.video }}
+			{% if video %}
+				<div class='video'>					
+					<iframe width="240" height="120" 
+						src="http://www.youtube.com/embed/{{ video.video }}?wmode=transparent" 
+						frameborder="0" allowfullscreen>
+					</iframe>
+				</div>
+			{% endif %}
+			
+			<div id="pag-testimonios">
+				<div class='cont'>					
+					{% with main_testi as testi %}						
+						<img src="{{testi.imagen.url}}" />
+						<span class='titulo'>{{testi.nombre}}</span>
+						<span class='titulo'>{{testi.categoria.nombre|upper}}</span>
+						<span class='texto'>{{testi.comentario|safe}}</span>				
+					{% endwith %}				
+				</div>
+				
+				<div class='clear'></div>				
+				<a href='/testimonios'  class='vertodos'>{ver todos}</a>
+				
+			</div>
 		</div>	
 	        
     </div>

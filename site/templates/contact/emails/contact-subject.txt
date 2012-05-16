@@ -1,0 +1,1 @@
+Nuevo mensaje de {{ message.nombre }} recibido en {{ site_name }}

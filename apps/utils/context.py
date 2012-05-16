@@ -20,6 +20,7 @@ from contact.models import ContactConfig
 from web.models import Pagina
 from banners.models import Banner
 from social.models import RedSocial
+from testimonios.models import *
 
 if settings.DEBUG:
     CACHE_EXPIRES = 60 # cada minuto
@@ -101,7 +102,14 @@ def context(request):
     pie = Pagina.objects.filter(es_activo=True, en_pie=True)
     
     cabeza = Pagina.objects.filter(es_activo=True, en_cabeza=True)
-
+    lista_testi  = Testimonios.objects.filter(es_activo=True,en_portada=True).order_by('orden')
+    
+    #portada: servicios y valores    
+    servicios_portada = Pagina.objects.filter(es_activo=True, plantilla='web/servicios.html', en_portada=True).order_by('tree_id')  
+    valores_portada = Pagina.objects.filter(es_activo=True, plantilla='web/valores.html', en_portada=True).order_by('tree_id')
+    
+    sellos = Banner.objects.filter(es_activo=True, posicion='Id').order_by('orden')
+    
     try:
         contact = ContactConfig.objects.get()
     except:
@@ -112,6 +120,10 @@ def context(request):
         'conf'          : conf,
         'pie'           : pie,
         'cabeza'        : cabeza,
+        'lista_testi'   : lista_testi,
+        'servicios_portada' : servicios_portada,
+        'valores_portada'   : valores_portada,
+        'sellos'        : sellos,
         
         # Menu izquierda
         'cat1'          : cat1,

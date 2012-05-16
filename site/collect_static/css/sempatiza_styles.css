@@ -27,6 +27,10 @@ body {
 	background-color: #FFFFFF;
 }
 
+a {
+	color: #71277A;
+}
+
 
 /* Colores */
 
@@ -230,8 +234,26 @@ body {
 	color: #1B232A;
 	font-size: 16px;
 	font-weight: bold;
-	margin-bottom: 20px;
+	margin-bottom: 10px;
+	margin-top: 40px;
 }
+
+#cat-cont .main p {
+	font-size: 12px;
+	font-weight: bold;
+	color: #545A5F;
+}
+
+#cat-cont p {
+	font-size: 11px;
+	font-weight: normal;
+	color: #545A5F;
+}
+
+#cat-cont a {
+	color: #71277A;
+}
+
 #cat-right {
 	float: left;
 	width: 250px;
@@ -240,12 +262,141 @@ body {
 	margin: 0px 20px 0 20px;
 }
 
+#cat-right .video {
+	float: left;
+	width: 240px;
+	height: 120px;
+}
+
+#cat-testimonios {
+	position: relative;
+	width: 260px;
+	height: 290px;
+	float: left;
+	border-bottom: 2px solid #D0CFCB;
+}
+#cat-testimonios ul {
+	list-style: none;
+}
+#cat-testimonios ul li {
+	float: left;
+	width: 258px;
+	height: 120px;
+}
+#cat-testimonios ul li img {
+	text-align: left;
+	float: left;
+	width: 68px;
+	margin-right: 10px;
+}
+#cat-testimonios ul li .titulo {
+	display: block;
+	width: auto;
+	margin-top: 2px;
+	font-size: 14px;
+	font-weight: bold;
+	color: #1b232a;
+}
+#cat-testimonios ul li .texto {
+	display: block;
+	margin-top: 5px;
+	width: auto;
+	height: 60px;
+	font-size: 12px;
+	font-weight: normal;
+	color: #848688;
+}
+
+#cat-testimonios a.vertodos {	
+	display: block;
+	position: absolute;
+	z-index: 2;
+	bottom: -15px;
+	right: 2px;	
+	font-size: 12px;
+	
+	width: 80px;
+	height: 20px;
+	padding-left: 5px;
+
+	background-color: #FFFFFF;
+}
+
+#cat-valores {
+	width: 260px;
+	height: 290px;
+}
+#cat-valores .item {
+	margin-top: 15px;
+	font-size: 13px;
+	color: #545A5F;
+}
+#cat-valores .tit {
+	font-size: 15px;
+	font-weight: bold;
+	color: #71277A;
+}
+#cat-valores img {
+	float: left;
+	width: 70px;
+	text-align: left;
+	margin-right: 40px;
+}
+
+#pag-testimonios {
+	position: relative;
+	width: 260px;
+	height: 120px;
+	float: left;
+	margin-top: 20px;
+	border-bottom: 2px solid #D0CFCB;
+	line-height:1.3em;
+}
+
+#pag-testimonios img {
+	text-align: left;
+	float: left;
+	width: 68px;
+	margin-right: 10px;
+}
+#pag-testimonios .titulo {
+	display: block;
+	width: auto;
+	margin-top: 2px;
+	font-size: 14px;
+	font-weight: bold;
+	color: #1b232a;
+}
+#pag-testimonios .texto {
+	display: block;
+	margin-top: 5px;
+	width: auto;
+	height: 70px;
+	font-size: 12px;
+	font-weight: normal;
+	color: #848688;
+}
+#pag-testimonios a.vertodos {	
+	display: block;
+	position: absolute;
+	z-index: 2;
+	bottom: -13px;
+	right: 0px;	
+	font-size: 12px;
+	
+	width: 80px;
+	height: 20px;
+	padding-left: 5px;
+
+	background-color: #FFFFFF;
+}
+
 #pie {
 	width: 960px;
 	height: 60px;
 	background-color: #FFFFFF;
 	margin: 0 auto;
-	border-top: 2px solid #D0CFCB;	
+	border-top: 2px solid #D0CFCB;
 }
 
 #social {
@@ -279,19 +430,41 @@ body {
 	margin-bottom: 15px;
 	background-color: #EFEEED;
 }
-#clientes-list ul {
-	list-style: none;
+#clientes-list-c {
+	float: left;
+	width: 350px;
 }
-#clientes-list ul li {
+#clientes-list-c ul {	
+	list-style: none;
+	overflow: hidden;
+}
+#clientes-list-c ul li {
 	float: left;
 	width: 40px;
 	height: 40px;
 	margin-left: 10px;
 	margin-top: 5px;
 }
-#clientes-list ul li img {
+#clientes-list-c ul li img {
 	width: 40px;
 	max-height: 40px;
+}
+#clientes-list .boton {
+	width: 20px;
+	height: 40px;
+	padding-top: 20px;
+	font-size: 18px;
+	font-weight: bold;
+	color: #1B232A;
+	cursor: pointer;
+}
+
+#clientes-list .prev {
+	margin-left: 5px;	
+	float: left;
+}
+#clientes-list .next {
+	float: right;
 }
 
 #falda {
@@ -308,6 +481,7 @@ body {
 	width: 420px;
 	height: 200px;
 	float: left;
+	overflow: hidden;
 }
 .caja-gris .titulo {
 	display: block;
@@ -324,13 +498,28 @@ body {
 	width: auto;
 	margin-top: 8px;
 	background-color: #E9EAEA;
+	overflow: hidden;	
+}
+
+#estyref {
+	margin-top: 10px;
+	width: 420px;
+	height: 180px;
+	width: 100%;
+	background: #E9EAEA url(../img/estudios.png) no-repeat right bottom;
+}
+#estyref .cont {
+	width: 80%;
+	float: left;
+	background-color: transparent;
 }
 
 #home-testimonios {
+	position: relative;
 	width: 420px;
 	height: 280px;
 	float: left;
-	margin-top: 20px;
+	margin-top: 5px;
 }
 #home-testimonios ul {
 	list-style: none;
@@ -362,6 +551,21 @@ body {
 	font-weight: normal;
 	color: #848688;
 }
+#home-testimonios a.vertodos {	
+	display: block;
+	position: absolute;
+	z-index: 2;
+	bottom: -20px;
+	right: 5px;	
+	font-size: 12px;
+	
+	width: 80px;
+	height: 20px;
+	padding-left: 5px;
+
+	background-color: #FFFFFF;
+}
+
 
 .caja-dcha {
 	padding-top: 20px;
@@ -376,6 +580,7 @@ body {
 	float: left;
 	width: 60px;
 	height: 180px;
+	overflow: hidden;
 }
 #home-sellos .titulo {
 	font-size: 15px;
@@ -391,7 +596,10 @@ body {
 	height: 30px;
 	margin-bottom: 4px;
 	
-	background-color: #D0CFCB;
+	/*background-color: #D0CFCB;*/
+}
+#home-sellos ul li img {
+	max-width: 50px;
 }
 
 #contacto_rapido-box {
@@ -519,7 +727,7 @@ body {
 	width: auto;
 	padding: 5px;
 }
-#menu-main ul li:first-child {
+#menu-main > ul > li:first-child {
 	 margin-left: 48px;
 }
 #menu-main ul a:hover {
@@ -557,7 +765,14 @@ body {
 
 #menu-main .menu-main-sub li {
 	float: none;
-	list-style: url(../img/bullet_menu1.gif);
+	margin: 3px 0 0 10px;
+	height: 20px;
+}
+#menu-main .menu-main-sub a {
+	color: #71277A;
+}
+#menu-main .menu-main-sub a:hover {
+	color: #FFFFFF;
 }
 
 #menu-main .menu-main-sub li.graf {
@@ -568,7 +783,7 @@ body {
 	height: 80px;	
 	background: url(../img/menu-sombra.png) 20% top no-repeat;
 	padding: 20px 0 0 10px;
-	
+	margin-left: 0px;
 	text-align: left;
 	font-size: 12px;
 }
@@ -691,4 +906,30 @@ body {
 	text-decoration: none;
 	display: block;
 	background:url(../img/slide-btn.png) no-repeat;
+}
+
+.blog {
+	padding: 5px;
+	font-size: 12px;
+	color: #5F6A72;
+}
+.blog-tit {
+	font-size: 16px;
+	font-weight: bold;
+	color: #1B232A;
+	
+}
+
+.contacto_thanks .title-big {
+	color: #71277A;
+	font-size: 21px;
+	font-weight: bold;
+	line-height: 25px;
+	margin-top: 15px;
+}
+.contacto_thanks .formu-txt {
+	color: #545A5F;
+	font-size: 14px;
+	line-height: 25px;
+	margin-top: 10px;
 }
