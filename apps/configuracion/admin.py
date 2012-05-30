@@ -51,7 +51,7 @@ class ConfiguracionAdmin(ModelAdmin):
         ('Blog', {'fields': ['blog', 'blog_rss', 'blog_rss2', 'blog_entradas']}),
         (u'Menú principal', {'fields': ['cat1_nombre', 'cat2_nombre', 'cat3_nombre']}),
         ('Diapositivas', {'fields': ['tiempo_diapositivas']}),
-        ('Códigos', {'fields': ['google_analytics', 'verificacion_webmaster']}),
+        ('Códigos', {'fields': ['google_analytics', 'verificacion_webmaster','google_maps_center','google_maps_zoom']}),
     ]
 
     inlines = [

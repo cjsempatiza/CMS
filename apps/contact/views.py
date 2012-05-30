@@ -53,6 +53,11 @@ def contact_form(request, template_name):
             The form instance.
     
     """
+    asunto = u"Me gustaría saber más información acerca de..."
+    if request.method == 'GET':
+        a = request.GET.get('p',False)
+        if a:
+            asunto = asunto + a
    
     try:
         current_site = Site.objects.get_current()
@@ -74,9 +79,10 @@ def contact_form(request, template_name):
             return HttpResponseRedirect(success_url)
     else:
         form = ContactForm(initial = {
-                            'nombre'    : u'Nombre',
-                            'email'     : u'Correo Electrónico',
-                            'mensaje'   : u'Me gustaría saber más información acerca de...',
+                            'nombre'    : u'Nombre*',
+                            'email'     : u'Correo Electrónico*',
+                            'phone_number'  : u'Teléfono',
+                            'mensaje'   : asunto,
                           })
     
     return render_to_response(template_name,
@@ -97,7 +103,7 @@ def contact_form_sent(request, template_name):
 
         
     return render_to_response(template_name,
-			      {
-				'contact_data': contact_data,
-			      },
-			      context_instance = RequestContext(request))
+	               {
+	                   'contact_data': contact_data,
+	               },
+			       context_instance = RequestContext(request))

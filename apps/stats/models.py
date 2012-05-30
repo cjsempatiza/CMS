@@ -20,5 +20,5 @@ class PageView(models.Model):
     user = models.ForeignKey(User, null=True)
     tracking_id = models.CharField(max_length=50, default='')
 
-class ProductView(PageView):
-    product = models.ForeignKey(Product)
+#class ProductView(PageView):
+#    product = models.ForeignKey(Product)

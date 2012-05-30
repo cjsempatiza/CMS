@@ -6,11 +6,23 @@
 
 {% block content %}
 
-<div id="slides" class='container'>
+<div id="slides">
     <div class="slides_container">
         {% for s in slides %}
         <div class='contenido'>
-                {% if s.imagen %}<img src="{{ s.imagen.url }}" alt="s.titulo" />{% endif %}
+                {% if s.imagen %}<img src="{{ s.imagen.url }}" alt="s.titulo" />{% endif %}                
+                {% if s.video %}
+	                <div class='video'>
+	                	
+	                	<object type="application/x-shockwave-flash" data="http://www.youtube.com/v/{{ s.video }}" width="340" height="218">
+	                		<param name="movie" value="http://www.youtube.com/v/{{ s.video }}" />
+	                		<param name="FlashVars" value="playerMode=embedded" />
+	                		<param name="wmode" value="transparent" />
+	                	</object>		
+						
+					</div>
+				{% endif %}
+                
                 <div class='titulo'>{% if s.titulo %}{{ s.titulo }}{% endif %}</div>
                 {% if s.contenido %}
                     <div class="texto">
@@ -20,7 +32,7 @@
                         {% endif %}
                     </div>
                 {% endif %}
-                {% if s.video %}{% endif %}
+                
         </div>
         {% endfor %}
     </div>
@@ -28,27 +40,34 @@
 
 <div id='cuerpo-home' class='container'>
 	
-	<div class='mitad'>
+	<div class='mitad mitad-i'>
 		<span class='titulo'>servicios destacados</span>
 		
 		{% for serv in servicios_portada %}
 		<div class='item'>
 			<p class='tit'>{{serv.titulo}}</p>
-			 {% if serv.main_image %}<img src="{{ serv.main_image.imagen.url }}" alt="{{ serv.main_image.titulo }}" >{% endif %}
+			<div class='izq'>
+			{% if serv.main_image.imagen %}<img src="{{ serv.main_image.imagen.url }}" alt="{{ serv.main_image.titulo }}" />{% endif %}
+			</div>
 			{{serv.resumen|safe}}
+			
+			<a class='enlacep' href='./{{serv.slug}}'>Descúbrelo &gt;&gt;</a>
 		</div>
 		{% endfor %}
 		
 	</div>
 	
-	<div class='mitad'>
+	<div class='mitad mitad-d'>
 		<span class='titulo'>nuestros valores</span>
 		
 		{% for valor in valores_portada %}
 		<div class='item'>
 			<p class='tit'>{{valor.titulo}}</p>
-			 {% if valor.main_image %}<img src="{{ valor.main_image.imagen.url }}" alt="{{ valor.main_image.titulo }}" >{% endif %}
+			<div class='izq'>
+			{% if valor.main_image.imagen %}<img src="{{ valor.main_image.imagen.url }}" alt="{{ valor.main_image.titulo }}" />{% endif %}
+			</div>			
 			{{valor.resumen|safe}}
+			<a class='enlacep' href='./{{valor.slug}}'>Descúbrelo &gt;&gt;</a>
 		</div>
 		{% endfor %}
 	</div>
@@ -58,15 +77,15 @@
 	<div class='mitad2'>
 		<span class='titulo'>nuestros clientes nos avalan</span>
 		<div id='clientes-list'>
-		<div class='boton prev'><</div>
+		<div class='boton prev'>&lt;</div>
 			<div id='clientes-list-c'>			
 				<ul>
 					{% for cli in lista_cli %}
-						<li><img src='{{cli.logo.url}}' title='{{cli.nombre}}' /></li>
+						<li><img src='{{cli.logo.url}}' alt='{{cli.nombre}}' /></li>
 					{% endfor %}
 				</ul>			
 			</div>
-		<div class='boton next'>></div>
+		<div class='boton next'>&gt;</div>
 		</div>
 		
 		<div class='caja-gris'>
@@ -88,26 +107,33 @@
 	<div class='mitad2'>
 		<span class='titulo'>testimonios</span>		
 		<div id="home-testimonios">
+			{% if lista_testi %}
 			<div class='cont'>
 				<ul>
 					{% for testi in lista_testi %}
 					<li>
-						<img src="{{testi.imagen.url}}" />
-						<span class='titulo'>{{testi.nombre}}</span>
-						<span class='titulo'>{{testi.categoria.nombre|upper}}</span>
-						<span class='texto'>{{testi.comentario|safe}}</span>
+						<div class='izq'>
+						{% if testi.imagen %}
+						<img src="{{testi.imagen.url}}" alt="{{testi.nombre}}" />
+						{% endif %}
+						</div>
+						<div class='dcha'>
+						<div class='titulo'>{{testi.nombre}}</div>
+						<div class='titulo'>{{testi.persona}}</div>
+						<div class='titulo'>{{testi.categoria.nombre|upper}}</div>
+						<div class='texto'>{{testi.resumen|safe}}</div>
+						</div>
 					</li>
 					{% endfor %}
 				</ul>
 				<div class='clear'></div>
-				
-				<a href='/testimonios'  class='vertodos'>{ver todos}</a>
-				
+				<a href='{% url testimonios %}'  class='vertodos'>{ver todos}</a>
 			</div>
+			{% endif %}
 		</div>
 	</div>
 	
 	<div class='clear'></div>	
 </div>
-
+{% include "falda.html" %}
 {% endblock %}

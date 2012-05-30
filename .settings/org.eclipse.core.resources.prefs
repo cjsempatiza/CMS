@@ -1,5 +1,7 @@
 eclipse.preferences.version=1
 encoding//apps/configuracion/admin.py=UTF-8
 encoding//apps/configuracion/models.py=UTF-8
+encoding//apps/configuracion/templatetags/conf_tags.py=UTF-8
 encoding//apps/metatags/models.py=UTF-8
+encoding//apps/social/admin.py=UTF-8
 encoding//apps/web/templatetags/activo.py=UTF-8

@@ -14,3 +14,13 @@ class TestimoniosAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Testimonios, TestimoniosAdmin)
+
+
+class TestimoniosConfigAdmin(admin.ModelAdmin):
+
+    class Media:
+        js = ('js/tiny_mce/tiny_mce.js',
+              'js/editores.js')
+
+
+admin.site.register(TestimoniosConfig, TestimoniosConfigAdmin)

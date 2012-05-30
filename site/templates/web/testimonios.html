@@ -9,7 +9,7 @@ Testimonios - {{ block.super }}
 <div class="cuerpo">
 	
 	<div id='cuerpo-banner' class='container'>
-		{% if object.main_header %}<img src="{{ object.main_header.imagen.url }}" alt="object.main_header.titulo" />{% endif %}
+		{% if object.main_header.imagen %}<img src="{{ object.main_header.imagen.url }}" alt="object.main_header.titulo" />{% endif %}
 		<h1>{{object.main_header.titulo}}</h1>
 		<h2>{{object.main_header.descripcion|safe}}</h2>
 	</div>
@@ -17,43 +17,67 @@ Testimonios - {{ block.super }}
 	<div class='cuerpo_cont'>
 		
 		<div class="breadcrumb">
-	        <a href="{% url index %}">Home</a> &gt; <span>Testimonios</span>
+	        <a href="{% url index %}">Home</a>
+	        {% if pag_cat %}
+	        	&gt; <span><a href="{% url testimonios %}">Testimonios</a></span>
+	        	&gt; <span>{{pag_cat.nombre}}</span>
+	        {% else %}
+	        	&gt; <span>Testimonios</span>
+	        {% endif %}
 	    </div>
+	    
+	    <div id='cat-cont' class='sola'>
+	    	<h2>Testimonios</h2>
+
+			<form id='ftesticat' method='POST' action={% url testimonios %}>
+			{% csrf_token %}
+	    	<select id='categoria' name="categoria" class="styled">
+	    		<option value="">filtro por categorías</option>
+	    		{% for cat in cat_list %}
+   				<option value="{{cat.slug}}" {% if cat.slug in testi_cat %} selected {% endif %} >{{cat.nombre}}</option>
+   				{% endfor %} 
+   			</select>
+   			<input id='ftesticat_submit' type='submit' value='Ver' />
+   			</form>
+   			
+   			<ul id='testi-list'>
+   			{% for testi in object_list %}
+				<li>
+					<div class='izq'>
+					{% if testi.imagen %}
+					{% thumbnail testi.imagen "78x110" as img %}
+                    	<img src="{{ img.url }}" alt="{{ categoria.main_banner.nombre }}" width="{{ img.width }}" height="{{ img.height }}" />
+                    {% endthumbnail %}
+                    {% endif %}
+					</div>
+					<div class='titulo'>{{testi.nombre}}</div>
+					<div class='titulo'>{{testi.persona}}</div>
+					<div class='titulo'>{{testi.categoria.nombre|upper}}</div>
+					<div class='texto'>{{testi.comentario|safe}}</div>
+				</li>
+			{% endfor %} 
+   			</ul>
+   			
+	   	</div>
 		
 	</div>
 
 </div>
 {% endblock %}
 
-{% comment %}
-<div class="centro_fondo">
-    <div id="centro">
-        {# <h1 class="h1_derecha"><strong><span class="azul">g</span><span class="rojo">o</span><span class="amarillo">o</span><span class="azul">g</span><span class="verde">l</span><span class="rojo">e</span> analytics</strong></h1> #}
-        {% if object.main_image %}<img class="h1_derecha" src="{{ object.main_image.imagen.url }}" alt="{{ object.main_image.titulo }}" >{% endif %}
-
-        <div class="migas">
-            <a href="{% url index %}">Home</a> &gt; 
-            <span>Clientes</span>
-        </div>
-
-        <h1 class="h1_izquierda">Clientes</h1>
-
-        <div class="span-19 last">
-        {% for object in object_list %}
-            <div class="listado span-4 {% cycle 'append-1' 'append-1' 'append-1' 'last'%}">
-                <a href="{{ object.url }}">
-                    {% thumbnail object.logo "210x120" colorspace="GRAY" as img %}
-                        <img src="{{ img.url }}" class="alignleft" alt="{{ object.nombre }}" />
-                    {% endthumbnail %}
-                </a>
-            </div>
-            {% cycle '' '' '' '<hr class="clear prepend-top" />' %}
-        {% endfor %}
-        </div>
-
-    </div><!-- END centro -->
-</div><!-- END centro_fondo -->
-{% endcomment %}
+{% block extra_body %}
+<script type="text/javascript" src="{{ STATIC_URL }}js/custom-form-elements.js"></script>
+<script type="text/JavaScript">
+$(document).ready(function(){
+	
+	$('#ftesticat_submit').hide();
+    $('#categoria').change(function() {
+    	$('#ftesticat').submit();
+    });
+  
+});
+</script>
+{% endblock %}
 
 {% block extrahead %}{% endblock %}
 {% block metakeywords %}{% for i in c %}{{ i.palabras_clave }}{% endfor %}{% endblock %}

@@ -34,26 +34,37 @@ def departamentos(request, slug):
     '''
     Vista de detalle
     '''
-
+    
     try:
-        f = Departamento.objects.get(slug_dep=slug)
-        l = f.equipo_set.all().order_by('orden')
-        mark_type = ContentType.objects.get_for_model(f)
-        c = Metatag.objects.filter(content_type__pk=mark_type.id, object_id=f.id)
-        return render_to_response("quienes/departament_detail.html",
-					{'object': f,
-					'equipos': l,
-					'c': c,
-					},
-					context_instance = RequestContext(request))
-    except Seccion.DoesNotExist:
-        raise Http404
+        quienes = Quienes.objects.get()
+    except:
+        quienes = None
+
+    #try:
+    departamentos = Departamento.objects.filter(es_activo=True).order_by('orden')
+    departamento = Departamento.objects.get(slug=slug)
+    equipos = departamento.equipo_set.all().order_by('orden')
+    mark_type = ContentType.objects.get_for_model(departamento)
+    c = Metatag.objects.filter(content_type__pk=mark_type.id, object_id=departamento.id)
+    #return render_to_response("quienes/departament_detail.html",
+    return render_to_response("quienes/quienes.html",
+				{
+                    'departamentos'     : departamentos,
+                    'departamento'      : departamento,
+				    'equipos'           : equipos,
+                    'quienes'           : quienes,
+				    'c'                 : c,
+				},
+				context_instance = RequestContext(request))
+    #except Seccion.DoesNotExist:
+    #    raise Http404
 
 
 def quienes(request):
     """ Mapa web con enlaces a todas las páginas públicas """
 
-    equipos = Equipo.objects.filter(es_activo=True).order_by('orden')
+    equipos = Equipo.objects.filter(es_activo=True).order_by('departamento')
+    departamentos = Departamento.objects.filter(es_activo=True).order_by('orden')
     
     try:
         quienes = Quienes.objects.get()
@@ -62,8 +73,9 @@ def quienes(request):
 
     return render_to_response("quienes/quienes.html",
                                 {
-                                    'equipos': equipos,
-                                    'object': quienes,
+                                    'equipos'       : equipos,
+                                    'departamentos' : departamentos,
+                                    'object'        : quienes,
                                 },
                                 context_instance = RequestContext(request))
 

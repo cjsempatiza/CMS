@@ -51,7 +51,7 @@ class Departamento(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('quienes.views.departamentos', [self.slug_dep])
+        return ('quienes.views.departamentos', [self.slug])
 
 
 class Quienes(models.Model):
@@ -60,7 +60,7 @@ class Quienes(models.Model):
     """
     titulo      = models.CharField(verbose_name=_(u'título'), max_length=120, unique=True, help_text=_(u'Título de la página. 120 caracteres máximo'))
     resumen     = models.TextField(verbose_name=_(u'Resumen'), blank=True, help_text=_(u'Usado para portada'))
-    imagen      = ImageField(upload_to='quienes/quienes', blank=True, null=True)
+    imagen      = ImageField(upload_to='quienes/quienes', blank=True, null=True,help_text=_(u'Dimensión: 125x125'))
     contenido   = models.TextField(verbose_name=_(u'Texto'), blank=True,)
 
     es_activo   = models.BooleanField(_(u'Activo'), default=True, help_text=_(u'Determina si se muestra en el sitio'))
@@ -85,7 +85,7 @@ class Equipo(models.Model):
     
     orden       = models.PositiveSmallIntegerField(blank=True, null=True, help_text=_(u'Orden en el equipo. 0 es el primero por la izquierda'))
     contenido   = models.TextField(verbose_name=_(u'Texto'), blank=True,)
-    imagen      = ImageField(upload_to='quienes/equipo', blank=True, null=True)
+    imagen      = ImageField(upload_to='quienes/equipo', blank=True, null=True,help_text=_(u'Dimensiones: 78x110'))
 
     es_activo   = models.BooleanField(_(u'Activo'), default=True, help_text=_(u'Determina si se muestra en el sitio'))
     creado_el           = models.DateTimeField(_(u'Creado el'), editable=False, auto_now_add=True)

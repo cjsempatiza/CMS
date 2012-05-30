@@ -58,8 +58,7 @@ def index(request):
                 url = request.POST['url']
             except:
                 url = urlresolvers.reverse('index')
-            return redirect(url)
-    
+            return redirect(url)    
     else:
         # Formulario de contacto rápido
         form        = ContactmeForm(initial = {
@@ -67,9 +66,9 @@ def index(request):
                                         #'telefono'  : u'999222555',
                                         #'email'     : u'usuario@correo.es',
                                         #'mensaje'   : u'Quiero presupuestos para varios proyectos',
-                                        'nombre'    : u'Nombre',
-                                        'telefono'  : u'Teléfono',
-                                        'email'     : u'E-mail',
+                                        'nombre'    : u'Nombre*',
+                                        'telefono'  : u'Teléfono*',
+                                        'email'     : u'E-mail*',
                                         'mensaje'   : u'Me gustaría saber más información acerca de...',
                                 })
 
@@ -169,10 +168,13 @@ def paginas(request, path):
     #else:
     #    menu_paginas        = Pagina.objects.filter(es_activo=True, parent=None, plantilla=object.plantilla).order_by('tree_id')
     
-    menu_paginas    = Pagina.objects.filter(es_activo=True, parent=None, plantilla='web/categoria.html').order_by('tree_id')
+    try:
+        menu_paginas    = Pagina.objects.filter(es_activo=True, parent=None, plantilla='web/categoria.html').order_by('tree_id')
+    except:
+        menu_paginas = None
    
     try:
-        cat_testi   = object.testimonios_set.filter(es_activo=True).order_by('orden')
+        cat_testi   = object.testimonios_set.filter(es_activo=True)[:2]
     except:
         cat_testi = None
     
@@ -181,10 +183,26 @@ def paginas(request, path):
     except:
          video = None
          
+    if not video:
+        try:
+            video = object.parent.videos.all()[0]
+        except:
+            video = None
+         
     try:
-        main_testi = object.testimonios_set.all()[0]
+        main_testi = object.testimonios_set.filter(es_activo=True).order_by('?')[0]
     except:
         main_testi = None
+        
+    try:
+        file = object.files.all()[0]
+    except:
+        file = None
+        
+    try:
+        precios = object.precios.order_by('orden')
+    except:
+        precios = None
     
     return render_to_response(object.plantilla, {
             'object'            : object,
@@ -194,7 +212,9 @@ def paginas(request, path):
             'menu_paginas'      : menu_paginas,
             'cat_testi'         : cat_testi,
             'video'             : video,
+            'file'              : file,
             'main_testi'        : main_testi,
+            'precios'           : precios,
            },
            context_instance = RequestContext(request))
 
@@ -252,14 +272,62 @@ def testimonios(request):
     '''
     Vista de listado de testimonios
     '''
-
-    object_list = Testimonios.objects.filter(es_activo=True)
-    if not object_list.exists():
-        return error_404(request)
+    try:
+        cat_list    = Pagina.objects.filter(es_activo=True, en_menu=True, plantilla='web/categoria.html').order_by('tree_id')
+    except:
+        cat_list = None
+    
+    if request.method == 'POST':
+        post_value = request.POST.get('categoria',False)
+        try:
+            pag_cat = Pagina.objects.filter(es_activo=True, slug=post_value).get()
+        except:
+            pag_cat = None
+            
+        object_list = Testimonios.objects.filter(es_activo=True, pagina=pag_cat)
+        if not object_list.exists():
+           object_list = None 
+    else:
+        pag_cat = None
+        post_value = None
+        object_list = Testimonios.objects.filter(es_activo=True)
+        if not object_list.exists():
+            return error_404(request)
 
     return render_to_response("web/testimonios.html",
                                 {
                                     'object_list'   : object_list,
+                                    'cat_list'   : cat_list,
+                                    'testi_cat' : post_value,
+                                    'pag_cat'   : pag_cat,
+                                },
+                                context_instance = RequestContext(request))
+    
+def testimonios_cat(request, testi_cat):
+    '''
+    Vista de listado de testimonios x cat
+    '''
+    
+    try:
+        cat_list    = Pagina.objects.filter(es_activo=True, en_menu=True, plantilla='web/categoria.html').order_by('tree_id')
+    except:
+        cat_list = None
+    
+    try:
+        pag_cat = Pagina.objects.filter(es_activo=True, slug=testi_cat).get()
+    except:
+        pag_cat = None 
+    
+    object_list = Testimonios.objects.filter(es_activo=True, pagina=pag_cat)
+    if not object_list.exists():
+        object_list = None
+   
+    return render_to_response("web/testimonios.html",
+                                {
+                                    'object_list'   : object_list,
+                                    'cat_list'      : cat_list,
+                                    'testi_cat' : testi_cat,
+                                    'pag_cat'   : pag_cat,
                                 },
                                 context_instance = RequestContext(request))
 
@@ -295,17 +363,35 @@ def tutoriales(request, tag_fil = None):
     '''
     Vista de listado de tutoriales
     '''
+      
+    tag_list = []
+    vs = VideoPagina.objects.all()
+    
+    for v in vs:
+        t = v.tags.split(',')
+        for n in t: 
+            tag_list.append(n)
+            
+    if request.method == 'POST':
+        post_value = request.POST.get('tagsel',False)
+        try:
+            tag_fil = post_value
+        except:
+            tag_fil = None
     
     if tag_fil == None :
       object_list = VideoPagina.objects.all()
     else:
       object_list = VideoPagina.objects.filter(tags__contains=tag_fil)
-
-    if not object_list.exists():
-        return error_404(request)
+      
+    
+    #if not object_list.exists():
+    #    return error_404(request)
 
     return render_to_response("web/tutorial_list.html",
                                 {
                                 'object_list'   : object_list,
+                                'tag_fil'       : tag_fil,
+                                'tag_list'      : tag_list,
                                 },
                                 context_instance = RequestContext(request))

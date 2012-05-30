@@ -7,13 +7,14 @@ from django.views.generic.simple import direct_to_template, redirect_to, HttpRes
 admin.autodiscover()
 
 urlpatterns = patterns('',
+    url(r'^admin_tools/', include('admin_tools.urls')),
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
     
     (r'^robots\.txt$', lambda r: HttpResponse("User-agent: *\nDisallow: /admin\nDisallow: /static\nDisallow: /media", mimetype="text/plain")),
-    url(r'^favicon\.ico$', 'django.views.generic.simple.redirect_to',{'url': '/media/img/favicon.ico'}),
+    #url(r'^favicon\.ico$', 'django.views.generic.simple.redirect_to',{'url': '/media/img/favicon.ico'}),
     
-    url(r'^c/', include('catalog.urls')),
+    #url(r'^c/', include('catalog.urls')),
     url(r'^contacto/', include('contact.urls')),
     url(r'^quienes/', include('quienes.urls')),
     url(r'^newsletter/', include('newsletter.urls')), 
@@ -33,8 +34,8 @@ if settings.DEBUG:
     )
     # Easy way to check error templates on development
     urlpatterns += patterns('',
-        #(r'^404/$', 'web.views.error_404'),
-        (r'^404/$', direct_to_template, {'template': '404.html'} ),
+        (r'^404/$', 'web.views.error_404'),
+        #(r'^404/$', direct_to_template, {'template': '404.html'} ),
         (r'^500/$', direct_to_template, {'template': '500.html'} ),
         (r'^503/$', direct_to_template, {'template': '503.html'} ),
     )

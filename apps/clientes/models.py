@@ -20,7 +20,7 @@ class Cliente(models.Model):
 
     nombre      = models.CharField(verbose_name=_(u'nombre'), max_length=120, help_text=_(u'Nombre del cliente'))
 
-    logo        = ImageField(upload_to='clientes', blank=True, null=True)
+    logo        = ImageField(upload_to='clientes', blank=True, null=True, help_text=_(u'Dimensiones: 40x40'))
     url         = models.URLField(verify_exists=False, blank=True, null=True,help_text=_(u'Web del cliente'))
     en_portada  = models.BooleanField(verbose_name=_(u'En portada'), default=False, help_text=_("Esto determina si el logo del cliente aparece en la portada"))
 

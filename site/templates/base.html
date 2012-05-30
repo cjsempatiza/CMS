@@ -4,39 +4,20 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/reset.css">
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/sempatiza_styles.css">
-    <link rel="shortcut icon" href="{{ conf.favicon.url }}">
-    
-	<script type="text/javascript">
-	  window.___gcfg = {lang: 'es'};
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/reset.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/galdon_styles.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/contacto.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/inputs.css" />
+    <link rel="shortcut icon" href="{{ conf.favicon.url }}" />
 	
-	  (function() {
-	    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-	    po.src = 'https://apis.google.com/js/plusone.js';
-	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-	  })();
-	</script>
-	
-	<div id="fb-root"></div>
-	<script>(function(d, s, id) {
-	  var js, fjs = d.getElementsByTagName(s)[0];
-	  if (d.getElementById(id)) return;
-	  js = d.createElement(s); js.id = id;
-	  js.src = "//connect.facebook.net/es_ES/all.js#xfbml=1&appId=231533796857282";
-	  fjs.parentNode.insertBefore(js, fjs);
-	  }(document, 'script', 'facebook-jssdk'));</script>
-
     <title>{% block title %}{{ conf.titulo }}{% endblock %}</title>
 </head>
 <body>
-
 <div id='sombras'>
-	
 <div id='cabecera' class='container'>
 	<h1>                           
         <a href="{% url index %}">
@@ -46,22 +27,25 @@
     </h1>
     <p>{{ conf.eslogan }}</p>
     
-    <div id='cab-right'>
+    <div id='cab-right'>    	
     	<div id='social-like'>
-    		<ul>
-    			<li class='fb'>
-    				<div class="fb-like" data-href="http://{{ site.domain }}" data-send="false" data-layout="button_count" data-width="120" data-show-faces="false"></div>
-    			</li>
-    			<li class='gplus'><g:plusone size="medium" annotation="none"></g:plusone></li>  			
-    		</ul>
-   		</div>
+    		<!-- AddThis Button BEGIN -->
+    		<script language="javascript" type="text/javascript">
+    		//<![CDATA[
+    		document.write("<div class='addthis_toolbox addthis_default_style'><a class='addthis_button_facebook_like' fb:like:layout='button_count' fb:like:width='110'></a><a class='addthis_button_google_plusone' g:plusone:size='medium'></a></div>");
+			//]]>
+			</script>
+			
+			<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=xa-4fc4ecfe1e919a76"></script>
+			<!-- AddThis Button END -->
+		</div>
       	<div class='clear'></div>
       	<div id='menu-cab'>
 	    	<ul>
-	    		<li><a href="{{ conf.blog }}">Blog</a></li>
-		    	{% for pagina in cabeza %}
-		        <li><a href="{{ pagina.get_absolute_url }}">{{ pagina.cabeza_nombre }}</a></li>
-		        {% endfor %}
+	    		<li><a href="{% url quienes %}">Quienes somos</a></li>
+	    		<li><a href="{% url contact %}">Contacto</a> | </li>
+	    		<li><a href="{% url tutoriales %}">Tutoriales</a> | </li>
+	    		<li><a href="{{ conf.blog }}">Blog</a> | </li>    	
 			</ul>
 		</div>
 	</div>
@@ -74,8 +58,8 @@
 
 
 <div id='menu-main' class='container'>
-	{% comment %}<h2>{{ conf.cat1_nombre }}</h2> {% endcomment %}
-    <ul>
+	
+	<ul>
     {% for categoria in cat1 %}
     
             <li><a href="{{ categoria.get_absolute_url }}"><span>{{ categoria.menu_nombre }}</span></a>
@@ -87,13 +71,15 @@
                     
                     {% if categoria.main_banner %}
                     <li class='graf'>
-                    	<span class='graf-txt'>
+                    	<div class='graf-txt'>
                         {{ categoria.main_banner.contenido|safe }}
-                        </span>
+                        </div>
                         
+                        {% if categoria.main_banner.imagen %}
                         {% thumbnail categoria.main_banner.imagen "75x84" as img %}
                         <img src="{{ img.url }}" alt="{{ categoria.main_banner.nombre }}" width="{{ img.width }}" height="{{ img.height }}" />
                         {% endthumbnail %}
+                        {% endif %}
                         <a class='boton' href="{{ pagina.main_banner.url }}">{{ categoria.main_banner.subtitulo }}</a>
                     </li>
                     {% endif %}
@@ -108,83 +94,16 @@
 
 {% block content %}{% endblock %}
 
-<div id='falda'>
-	
-	<div class='caja-gris'>
-		<span class='titulo'>estudios y reflexiones</span>
-		<div id='estyref'>
-			{% load i18n feeds %}
-			{% if conf.blog_rss2 %}
-			<div class='cont'>
-				{% with rss=conf.blog_rss2 %}
-		            {% include_feed rss 1 blog.html %}
-		        {% endwith %}
-			</div>
-			{% endif %}
-		</div>
-	</div>
-	
-	<div class='caja-dcha'>
-	
-		<div id='home-sellos'>
-			<span class='titulo'>sellos de calidad</span>
-			<ul>
-				{% if sellos %}
-					{% for sello in sellos %}
-                    <li><center><img src='{{sello.imagen.url}}' title='{{cli.nombre}}' /></center></li>
-                    {% endfor %}       
-				{% endif %}
-			</ul>
-		</div>
-		
-		<div id='contacto_rapido-box'>
-			<div class='cont'>
-			<form action="{% url index %}" method="post" class="contacto_rapido">
-				<span class='titulo'>¿hablamos?</span>
-                {% csrf_token %}
-                {% if quick_form.errors.nombre %}<p>{{ quick_form.errors.nombre.0 }}</p>{% endif %}
-                <label for="{{ quick_form.nombre.auto_id }}" class="none">{{ quick_form.nombre.label }}</label>
-                {{ quick_form.nombre }}
-                {% if quick_form.errors.telefono %}<p>{{ quick_form.errors.telefono.0 }}</p>{% endif %}
-                <label for="{{ quick_form.telefono.auto_id }}" class="none">{{ quick_form.telefono.label }}</label>
-                {{ quick_form.telefono }}
-                {% if quick_form.errors.email %}<p>{{ quick_form.errors.email.0 }}</p>{% endif %}
-                <label for="{{ quick_form.email.auto_id }}" class="none">{{ quick_form.email.label }}</label>
-                {{ quick_form.email }}
-                
-                {% comment %}
-                {% if quick_form.errors.mensaje %}<p>{{ quick_form.errors.mensaje.0 }}</p>{% endif %}
-                <label for="{{ quick_form.mensaje.auto_id }}" class="none">{{ quick_form.mensaje.label }}</label>
-                {{ quick_form.mensaje }}                
-                {% endcomment %}
-                
-                {% if quick_form.errors.condiciones %}<p>{{ quick_form.errors.condiciones.0 }}</p>{% endif %}
-                {{ quick_form.condiciones }}
-                <label id="label_condiciones" for="{{ quick_form.condiciones.auto_id }}">{{ quick_form.condiciones.label|safe }}</label>
-                
-                <input class="btn_send" type="submit" value="Llamadme!" {% if contact.analytics_contactame %}{{ contact.analytics_contactame|safe }}{% endif %}/>
-                <input type="hidden" name="url" value="{{ request.path }}" />
-            </form><!-- END .contacto-rapido -->
-
-            <div class="contacto_thanks" style="display: none; ">
-                <h2 class="title-big">gracias por <br/> confiar en nosotros </h2>
-                <div class="formu-txt">
-                    <p>En breve nos <br/>pondremos en contacto <br/>contigo</p>
-                </div>
-            </div>
-			</div>
-		</div>
-	
-	</div>
-	
-</div>
-
 <div id="pie">
 	{# Social #}
    	<div id="social">
         <ul>
             {% for s in social %}
-            <li><a href="{{ s.enlace }}" onclick="{{ s.enlace_analytics }}"><img src="{{ s.imagen.url }}" alt="{{ s.nombre }}" /></a></li>
+            <li><a href="{{ s.enlace }}" onclick="{{ s.enlace_analytics }}">
+            	{% if s.imagen %}
+            	<img src="{{ s.imagen.url }}" alt="{{ s.nombre }}" /></a>
+            	{% endif %}
+            </li>
             {% endfor %}
         </ul>
     </div>
@@ -192,7 +111,11 @@
     <div id='menu-pie'>
 		<ul>
             {% for pagina in pie %}
-            <li><a href="{{ pagina.get_absolute_url }}">{{ pagina.pie_nombre }}</a></li>
+            <li><a href="{{ pagina.get_absolute_url }}">{{ pagina.pie_nombre }}</a>
+            {% if not forloop.last %}
+            &nbsp;|&nbsp;
+            {% endif %}
+            </li>
             {% endfor %}
         </ul>   
     </div>    
@@ -203,6 +126,7 @@
 <script type="text/JavaScript" src="{{ STATIC_URL }}js/slides.min.jquery.js"></script>
 <script type="text/JavaScript" src="{{ STATIC_URL }}js/functions.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/jcarousellite.min.js"></script>
+
 <script type="text/JavaScript">
     $(function(){
         $('#slides').slides({
@@ -210,10 +134,15 @@
                 generateNextPrev: false,
                 preloadImage: '{{ STATIC_URL }}img/loading.gif',
                 play: {{ conf.tiempo_diapositivas }},
-                pause: 500
+                hoverPause: true,
+                pause: 1000
 		});
 		
+		//-- SUBMENU --
 		$('.menu-main-sub').hide();
+		var x_max = $('.container').width();
+		var b = parseInt($('.menu-main-sub').css('border-width'));
+		
 		var fMenuMainOn = function(){
 			$('#menu-main ul > li > a').removeClass('current');
 			$(this).addClass('current');
@@ -221,13 +150,33 @@
 			
 			$('.menu-main-sub').hide();
 			$(this).find('ul:first').show();
-		};		
-	
+			
+			//main
+			mx = $(this).offset().left;			
+			mt = $(this).offset().top;
+			mw = $(this).width();
+			
+			//sub
+			sm = $(this).find('ul:first');
+			w = sm.width();
+			
+			offst = mx + (w-mw); 
+						
+			if( offst > x_max )
+			{
+				x = (mx-w)+(mw-b);
+				var opt = {
+				    "left": x
+				};
+				sm.offset(opt);
+			}
+		};	
 		$('#menu-main > ul > li').mouseover( fMenuMainOn );
 		$('.menu-main-sub').mouseleave(function(){
 			$('.menu-main-sub').fadeOut();
 			$('#menu-main ul > li > a').removeClass('current');
-		});
+		});		
+		//-- SUBMENU.END --
 		
 		$("#clientes-list-c").jCarouselLite({
 	        speed: 700,
@@ -249,6 +198,8 @@
             validate_rapido();
             return false
         });
+        
+        
     });
 
 </script>

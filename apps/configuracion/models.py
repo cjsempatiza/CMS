@@ -37,6 +37,9 @@ class Configuracion(models.Model):
     google_analytics    = models.TextField(verbose_name=_(u'Código de Analytics'), max_length=100, blank=True, null=True,)
     verificacion_webmaster = models.CharField(verbose_name=_(u'Código de webmasters'), max_length=100, blank=True, null=True,)
 
+    google_maps_center    = models.CharField(_(u'Coordinates'), max_length=255, blank=True, null=True, help_text=_(u'Center the map on this coordinates. It may look like this: 40.42186,-3.700333'),)
+    google_maps_zoom    = models.IntegerField(_(u'Zoom'), blank=True, default=5,)
+
     creado_el           = models.DateTimeField(_(u'Creado el'), editable=False, auto_now_add=True)
     actualizado_el      = models.DateTimeField(_(u'Actualizado el'), editable=False, auto_now=True)
 

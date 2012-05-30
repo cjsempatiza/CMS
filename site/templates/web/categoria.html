@@ -8,10 +8,12 @@
 <div class="cuerpo">
 	
 	<div id='cuerpo-banner' class='container'>
-		{% if object.main_header %}<img src="{{ object.main_header.imagen.url }}" alt="object.main_header.titulo" />{% endif %}
+		{% if object.main_header.imagen %}<img src="{{ object.main_header.imagen.url }}" alt="object.main_header.titulo" />{% endif %}
 		<h1>{{object.main_header.titulo}}</h1>
 		<h2>{{object.main_header.descripcion|safe}}</h2>
 	</div>
+	
+	<div class='clear'></div>
 	
 	<div class='cuerpo_cont'>
 	
@@ -29,15 +31,35 @@
     		{% for pagina in menu_paginas %}
     			<li>
     			{% if pagina.get_absolute_url in request.path %}
-                <a class='current' href="{{ pagina.get_absolute_url }}">{{ pagina.nombre }}</a>
+                <a class='current' href="{{ pagina.get_absolute_url }}">                	
+                	{% if pagina.cabeza_nom %}
+            			{{ pagina.cabeza_nom }}
+            		{% else %}
+            			{{ pagina.nombre }}
+            		{% endif %}
+                </a>
                 {% else %}
-                <a href="{{ pagina.get_absolute_url }}">{{ pagina.nombre }}</a>
+                <a href="{{ pagina.get_absolute_url }}">
+                	{% if pagina.cabeza_nom %}
+            			{{ pagina.cabeza_nom }}
+            		{% else %}
+            			{{ pagina.nombre }}
+            		{% endif %}                	
+                </a>
                 {% endif %}
                 
 	                {% if pagina.get_absolute_url in request.path and pagina.hijos %}
 	                <ul>
-	                    {% for hijo in pagina.hijos %}
-	                        <li><a href="{{ hijo.get_absolute_url }}">{{ hijo.nombre }}</a></li>
+	                    {% for hijo in pagina.hijos %}	                    	
+                        	<li>
+                        		<a href="{{ hijo.get_absolute_url }}">
+                        		{% if hijo.cabeza_nom %}
+                        			{{ hijo.cabeza_nom }}
+                        		{% else %}
+                        			{{ hijo.nombre }}
+                        		{% endif %}
+                        		</a>
+                        	</li>	                        
 	                    {% endfor %}
 	                </ul>
 	                {% endif %}
@@ -52,69 +74,68 @@
 	    	{{object.resumen|safe}}
 	    	</div>
 	    	
+	    	<ul id='cat-list'>
     	 	{% for hijo in object.hijos %}
+    	 		<li>
                 <h3>{{ hijo.nombre }}</h3>
+                
                 {{hijo.resumen|safe}}
-                <p><a href='{{hijo.slug}}'>Descúbrelo</a></p>
+                
+                <a href='{{hijo.slug}}'>Descúbrelo &gt;&gt;</a>
+                
+                </li>
             {% endfor %}
-	    	 
+	    	</ul>
+	    	
 	    </div>
 
 		<div id='cat-right'>
+			{% if cat_testi %}
 			<div id="cat-testimonios">
-				<div class='cont'>
-					<ul>
-						{% for testi in cat_testi %}
-						<li>
-							<img src="{{testi.imagen.url}}" />
-							<span class='titulo'>{{testi.nombre}}</span>
-							<span class='titulo'>{{testi.categoria.nombre|upper}}</span>
-							<span class='texto'>{{testi.comentario|safe}}</span>
-						</li>
-						{% endfor %}
-					</ul>
-				</div>
-				
-				<div class='clear'></div>				
-				<a href='/testimonios'  class='vertodos'>{ver todos}</a>
-				
+			<div class='cont'>
+				<ul>
+					{% for testi in cat_testi %}
+					<li>
+						<div class='izq'>
+						{% if testi.imagen %}
+						<img src="{{testi.imagen.url}}" />
+						{% endif %}
+						</div>
+						<div class='dcha'>
+						<div class='titulo'>{{testi.nombre}}</div>
+						<div class='titulo'>{{testi.persona}}</div>
+						<div class='titulo'>{{testi.categoria.nombre|upper}}</div>
+						<div class='texto'>{{testi.resumen|safe}}</div>
+						</div>
+					</li>
+					{% endfor %}
+				</ul>
 			</div>
+			
+			<div class='clear'></div>				
+			<a href='{% url testimonios %}'  class='vertodos'>{ver todos}</a>
+			</div>
+			{% endif %}
+			
 			<div class='clear'></div>
-			<div id="cat-valores">		
+			<div id="cat-valores">
+				<ul>
 				{% for valor in valores_portada %}
-				<div class='item'>
+				<li class='item'>
 					<p class='tit'>{{valor.titulo}}</p>
-					 {% if valor.main_image %}<img src="{{ valor.main_image.imagen.url }}" alt="{{ valor.main_image.titulo }}" >{% endif %}
+					<div class='izq'>
+					{% if valor.main_image.imagen %}<img src="{{ valor.main_image.imagen.url }}" alt="{{ valor.main_image.titulo }}" >{% endif %}
+					</div>
 					{{valor.resumen|safe}}
-				</div>
+					<a href='./{{valor.slug}}'>Descúbrelo &gt;&gt;</a>
+				</li>
 				{% endfor %}
+				</ul>
 			</div>
 			
 		</div>	
-	        
+	    <div class="clear"></div>  
     </div>
-	
 </div>
+{% include "falda.html" %}
 {% endblock %}
-	
-	{% comment %}
-    <div id="centro">
-        {# <h1 class="h1_derecha"><strong><span class="azul">g</span><span class="rojo">o</span><span class="amarillo">o</span><span class="azul">g</span><span class="verde">l</span><span class="rojo">e</span> analytics</strong></h1> #}
-        {% if object.main_image %}<img class="h1_derecha" src="{{ object.main_image.imagen.url }}" alt="{{ object.main_image.titulo }}" >{% endif %}
-
-        
-
-        <h1 class="h1_izquierda">{{ object.nombre }}</h1>
-
-        <h2>{{ object.titulo }}</h2>
-
-        <div class="texto">
-            {{ object.contenido|safe }}
-
-            
-            </div><!-- END .botonera -->
-        </div><!-- END .texto -->
-
-
-    </div><!-- END centro -->
-	{% endcomment %}

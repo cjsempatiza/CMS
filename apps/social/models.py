@@ -21,7 +21,7 @@ class RedSocial(models.Model):
     enlace      = models.URLField(verbose_name=_(u'URL'), verify_exists=False, null=True, blank=True, help_text=_(u'Enlace que se quiera añadir a la diapostiva'))
     enlace_analytics = models.CharField(verbose_name=_(u'Analytics URL'), max_length=256, null=True, blank=True, help_text=_(u'Código Analytics del enlace. 256 caracteres máx.'))
     orden       = models.IntegerField(_(u'Orden'), default=0, help_text=_(u'Orden en el que se mostrará'))
-    imagen      = ImageField(_(u'Icono de la red social'), upload_to='social')
+    imagen      = ImageField(_(u'Icono de la red social'), upload_to='social',help_text=_(u'Dimensiones: 23x23'))
     
     es_activo   = models.BooleanField(_(u'Activo'), default=True, help_text=_(u'Determina si se muestra en el sitio'))
     creado_el           = models.DateTimeField(_(u'Creado el'), editable=False, auto_now_add=True)

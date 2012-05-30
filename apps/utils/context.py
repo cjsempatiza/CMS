@@ -51,9 +51,9 @@ def context(request):
                                         #'telefono'  : u'999222555',
                                         #'email'     : u'usuario@correo.es',
                                         #'mensaje'   : u'Quiero presupuestos para varios proyectos',
-                                        'nombre'    : u'Nombre',
-                                        'telefono'  : u'Teléfono',
-                                        'email'     : u'Correo Electrónico',
+                                        'nombre'    : u'Nombre*',
+                                        'telefono'  : u'Teléfono*',
+                                        'email'     : u'E-mail*',
                                         'mensaje'   : u'Me gustaría saber más información acerca de...',
                                })
 
@@ -102,11 +102,15 @@ def context(request):
     pie = Pagina.objects.filter(es_activo=True, en_pie=True)
     
     cabeza = Pagina.objects.filter(es_activo=True, en_cabeza=True)
-    lista_testi  = Testimonios.objects.filter(es_activo=True,en_portada=True).order_by('orden')
+    
+    try:
+        lista_testi  = Testimonios.objects.filter(es_activo=True,en_portada=True).order_by('?')[:2]
+    except:
+        lista_testi = None
     
     #portada: servicios y valores    
-    servicios_portada = Pagina.objects.filter(es_activo=True, plantilla='web/servicios.html', en_portada=True).order_by('tree_id')  
-    valores_portada = Pagina.objects.filter(es_activo=True, plantilla='web/valores.html', en_portada=True).order_by('tree_id')
+    servicios_portada = Pagina.objects.filter(es_activo=True, plantilla='web/servicios.html', en_portada=True).order_by('?')[:2]  
+    valores_portada = Pagina.objects.filter(es_activo=True, plantilla='web/valores.html', en_portada=True).order_by('?')[:2]
     
     sellos = Banner.objects.filter(es_activo=True, posicion='Id').order_by('orden')
     

@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 {% block title %}{{ object.titulo|striptags }}{{ block.super }}{% endblock %}
 
+
+
+{% comment %}
 {% block headbanner %} 
     {% autoescape off %}
     <div class="content-banner">
@@ -77,6 +80,8 @@
 	});
 </script>
 {% endblock %}
+{% endcomment %}
+
 {% block metatitle %}{% for i in c %}{{ i.titulo }}{% endfor %}{% endblock %}
 {% block metakeywords %}{% for i in c %}{{ i.palabras_clave }}{% endfor %}{% endblock %}
 {% block metadescription %}{% for i in c %}{{ i.descripcion }}{% endfor %}{% endblock %}

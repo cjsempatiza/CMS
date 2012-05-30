@@ -38,7 +38,7 @@ class ContactForm(forms.ModelForm):
     email       = forms.CharField(label=u'Correo Electrónico', required=True, widget=forms.TextInput(attrs={'onfocus': 'clearTextEmail(this)', 'onblur': 'setTextEmail(this)'}))
     phone_number= forms.CharField(label=u'Teléfono', required=False, widget=forms.TextInput(attrs={'onfocus': 'clearTextPhone(this)', 'onblur': 'setTextPhone(this)'}))
     mensaje     = forms.CharField(label=u'Me gustaría saber más información acerca de...', required=True, min_length=25, widget=forms.Textarea(attrs={'onfocus': 'clearTextMsg(this)', 'onblur': 'setTextMsg(this)'}))
-    condiciones = forms.BooleanField(label=u'He leído el <a href="/aviso-legal/" target="_blank">Aviso legal</a>', required=True)
+    condiciones = forms.BooleanField(label=u'Acepto <a href="/aviso-legal/" target="_blank">Aviso legal</a>', required=True)
     
     class Meta:
 	model = Message
@@ -55,7 +55,7 @@ class ContactmeForm(forms.ModelForm):
     telefono    = forms.CharField(label=u'Teléfono', required=False, widget=forms.TextInput(attrs={'onfocus': 'clearTextPhone(this)', 'onblur': 'setTextPhone(this)'}))
     email       = forms.CharField(label=u'Correo Electrónico', required=True, widget=forms.TextInput(attrs={'onfocus': 'clearTextEmail(this)', 'onblur': 'setTextEmail(this)'}))
     mensaje     = forms.CharField(label=u'Me gustaría saber más información acerca de...', required=True, widget=forms.Textarea(attrs={'onfocus': 'clearTextMsg(this)', 'onblur': 'setTextMsg(this)'}))
-    condiciones = forms.BooleanField(label=u'He leído el <a href="/aviso-legal/" target="_blank">Aviso legal</a>', required=True)
+    condiciones = forms.BooleanField(label=u'Acepto el <a href="/aviso-legal/" target="_blank">Aviso legal</a>', required=True)
     
     class Meta:
 	model = Message

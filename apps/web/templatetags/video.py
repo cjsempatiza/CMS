@@ -16,6 +16,7 @@ def youtube(url):
     <object width="425" height="344">
     <param name="movie" value="http://www.youtube.com/watch/v/%s"></param>
     <param name="allowFullScreen" value="true"></param>
+    <param name="wmode" value="transparent" />
     <embed src="http://www.youtube.com/watch/v/%s" type="application/x-shockwave-flash" allowfullscreen="true" width="425" height="344"></embed>
     </object>
     """ % (video_id, video_id)

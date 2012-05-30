@@ -86,6 +86,10 @@ TEMPLATE_DIRS = (
 )
 
 INSTALLED_APPS = (
+    'admin_tools',
+    'admin_tools.theming',
+    'admin_tools.menu',
+    'admin_tools.dashboard',                
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -100,7 +104,7 @@ INSTALLED_APPS = (
     'south',
     'sorl.thumbnail',
     'banners',
-    'catalog',
+    #'catalog',
     'stats',
     'configuracion',
     'contact',

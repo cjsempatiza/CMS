@@ -11,8 +11,8 @@ from sorl.thumbnail import ImageField
 #sys.setrecursionlimit(1500)
 
 class Slider(models.Model):
-    imagen      = ImageField(_(u'Imagen'), upload_to='slider', blank=True, help_text=_(u'Dimensiones: AAAxBBB'))
-    video       = models.TextField(verbose_name=_(u'Codigo Video'), blank=True)
+    imagen      = ImageField(_(u'Imagen'), upload_to='slider', blank=True, help_text=_(u'Dimensiones: 237x219'))
+    video       = models.CharField(verbose_name=_(u'Codigo del video'), max_length=256, null=True, blank=True, help_text=_(u'ID del código del video'))
     titulo      = models.CharField(verbose_name=_(u'Titulo'), max_length=120, null=True, blank=True, help_text=_(u'Título de la diapositiva. 120 caracteres máx.'))
     contenido   = models.TextField(verbose_name=_(u'Contenido'), blank=True, help_text=_(u'Texto del cuerpo de la diapositiva'))
     enlace      = models.URLField(verbose_name=_(u'URL'), verify_exists=False, null=True, blank=True, help_text=_(u'Enlace que se quiera añadir a la diapostiva'))

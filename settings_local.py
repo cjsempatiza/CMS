@@ -52,6 +52,10 @@ MIDDLEWARE_CLASSES = (
 INTERNAL_IPS = ('127.0.0.1',)
 
 INSTALLED_APPS = (
+    'admin_tools',
+    'admin_tools.theming',
+    'admin_tools.menu',
+    'admin_tools.dashboard',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -67,7 +71,7 @@ INSTALLED_APPS = (
     'sorl.thumbnail',
     'debug_toolbar',
     'banners',
-    'catalog',
+    #'catalog',
     'stats',
     'configuracion',
     'contact',
@@ -78,7 +82,7 @@ INSTALLED_APPS = (
     'testimonios',
     'web',
     'clientes',
-    'proyectos',
+    #'proyectos',
     'newsletter',
     'feincms', #only to run collectstatic and find templates
 )

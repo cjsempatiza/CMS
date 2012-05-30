@@ -26,14 +26,14 @@ function validate_rapido(){
     
     $("#contacto_thanks").hide();
 
-    if(Tname=='' || Tname=='Nombre')
+    if(Tname=='' || Tname=='Nombre' || Tname=='Nombre*')
     {
         $(".contacto_rapido #id_nombre").css({'border':'1px solid red'});
         chk = false
     } else {
         $(".contacto_rapido #id_nombre").css({'border':'0px'});
     }
-    if(Tphone=='' || Tphone=='Teléfono')
+    if(Tphone=='' || Tphone=='Teléfono' || Tphone=='Teléfono*')
     {
         $(".contacto_rapido #id_telefono").css({'border':'1px solid red'});
         chk = false
@@ -47,7 +47,7 @@ function validate_rapido(){
     }   else {
         $(".contacto_rapido #id_mensaje").css({'border':'0px'});
     }                       
-    if(Temail=="" || Temail=='Correo Electrónico')
+    if(Temail=="" || Temail=='E-mail' || Temail=='E-mail*')
     {
         $(".contacto_rapido #id_email").css({'border':'1px solid red'});
         chk = false
@@ -86,12 +86,12 @@ function validate_contact(){
     var Tmsg    = $(".contact #id_mensaje").val();
     var Tcond   = $(".contact #id_condiciones").val();
     
-    if(Tname=='' || Tname=='Nombre')
+    if(Tname=='' || Tname=='Nombre' || Tname=='Nombre*')
     {
         $(".contact #id_nombre").css({'border':'1px solid red'});
         chk = false
     } else {
-        $(".contact #id_nombre").css({'border':'1px solid #FE481A'});
+        $(".contact #id_nombre").css({'border':'1px solid #d2d4d5'});
     }
 //     if(Tphone=='' || Tphone=='Teléfono')
 //     {
@@ -100,14 +100,14 @@ function validate_contact(){
 //     } else {
 //         $(".contact #id_telefono").css({'border':'1px solid #FE481A'});
 //     }
-    if(Tmsg=='' || Tmsg=='Me gustaría saber más información acerca de...')
-    {
-        $(".contact #id_mensaje").css({'border':'1px solid red'});
-        chk = false
-    }   else {
-        $(".contact #id_mensaje").css({'border':'1px solid #FE481A'});
-    }                       
-    if(Temail=="" || Temail=='Correo Electrónico')
+//    if(Tmsg=='' || Tmsg=='Me gustaría saber más información acerca de...')
+//    {
+//        $(".contact #id_mensaje").css({'border':'1px solid red'});
+//        chk = false
+//    }   else {
+//        $(".contact #id_mensaje").css({'border':'1px solid #FE481A'});
+//    }                       
+    if(Temail=="" || Temail=='Correo Electrónico' || Temail=='Correo Electrónico*')
     {
         $(".contact #id_email").css({'border':'1px solid red'});
         chk = false
@@ -117,10 +117,10 @@ function validate_contact(){
                 $(".contact #id_email").css({'border':'1px solid red'});
                 chk = false
         } else {
-            $(".contact #id_email").css({'border':'1px solid #FE481A'});
+            $(".contact #id_email").css({'border':'1px solid #d2d4d5'});
         }
     }
-    if($(".contact #id_condiciones").attr("checked") != true)
+    if($(".contact #id_condiciones").attr("checked") != "checked")
     {
         $(".contact #label_condiciones").css({'border':'1px solid red'});
         chk = false

@@ -8,7 +8,7 @@
 '''
 
 from catalog.models import Config, Product
-from stats.models import ProductView
+#from stats.models import ProductView
 import base64
 import random
 

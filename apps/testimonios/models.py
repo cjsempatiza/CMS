@@ -10,11 +10,11 @@ class TestimoniosConfig(models.Model):
     titulo     = models.CharField(verbose_name=_(u'Título de la página de testimonios'), max_length=120)
     texto      = models.TextField(verbose_name=_(u'Contenido para pagina de testimonios'), blank=True,)
     
-    titulo_lat     = models.CharField(verbose_name=_(u'Título del lateral de testimonios'), max_length=120)
-    texto_lat      = models.TextField(verbose_name=_(u'Resumen para laterales'), blank=True,)
+    #titulo_lat     = models.CharField(verbose_name=_(u'Título del lateral de testimonios'), max_length=120)
+    #texto_lat      = models.TextField(verbose_name=_(u'Resumen para laterales'), blank=True,)
 
     analytics  = models.TextField(verbose_name=_(u'Analytics de la página de testimonios'), blank=True,)
-    imagen     = ImageField(_(u'Imagen de la página de testimonios'), upload_to='testimonios/config')    
+    imagen     = ImageField(_(u'Imagen de la página de testimonios'), upload_to='testimonios/config',help_text=_(u'Dimensión: 125x125'))    
     
     class Meta:
         verbose_name = _(u'Configuración de Testimonios')
@@ -22,18 +22,20 @@ class TestimoniosConfig(models.Model):
 
 
 class Testimonios(models.Model):
-    nombre      = models.CharField(verbose_name=_(u'Nombre'), max_length=120, help_text=_(u'Nombre de la persona'))
+    nombre      = models.CharField(verbose_name=_(u'Nombre'), max_length=120, help_text=_(u'Nombre'))
+    persona     = models.CharField(verbose_name=_(u'Persona'), max_length=120, help_text=_(u'Nombre de la persona'))
+    resumen     = models.TextField(verbose_name=_(u'Resumen'), max_length=100, help_text=_(u'Comentario, max 100 caracteres'))
     comentario  = models.TextField(verbose_name=_(u'Comentario'), max_length=220, help_text=_(u'Comentario, max 220 caracteres'))
     orden       = models.IntegerField(_(u'Orden'), default=0, help_text=_(u'Orden en el que se mostrará'))
-    imagen      = ImageField(_(u'Imagen del testimonio'), upload_to='testimonios', blank=True, null=True)
+    imagen      = ImageField(_(u'Imagen del testimonio'), upload_to='testimonios', blank=True, null=True,help_text=_(u'Dimensiones: 78x110'))
 
     en_portada  = models.BooleanField(_(u'En portada'), default=True, help_text=_(u'Determina si se muestra en la portada'))
     es_activo   = models.BooleanField(_(u'Activo'), default=True, help_text=_(u'Determina si se muestra en el sitio'))
     creado_el           = models.DateTimeField(_(u'Creado el'), editable=False, auto_now_add=True)
     actualizado_el      = models.DateTimeField(_(u'Actualizado el'), editable=False, auto_now=True)
     
-    categoria   = models.ForeignKey(Category, verbose_name=_(u'Categoría'), blank=True)
-    pagina      = models.ForeignKey(Pagina, verbose_name=_(u'Página'), blank=True)
+    #categoria   = models.ForeignKey(Category, verbose_name=_(u'Categoría'), blank=True)
+    pagina      = models.ForeignKey(Pagina, verbose_name=_(u'Página'), blank=False)
     
     class Meta:
         verbose_name = _(u'Testimonio')

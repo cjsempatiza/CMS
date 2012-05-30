@@ -56,18 +56,23 @@ class ArchivoPaginaInline(admin.TabularInline):
     model = ArchivoPagina
     extra = 0
     verbose_name = _(u'Archivo de página')
+    
+class PrecioPaginaInline(admin.TabularInline):
+    model = PrecioPagina
+    extra = 0
+    verbose_name = _(u'Precio de página')
 
 class PaginaAdmin(editor.TreeEditor):
     form = PaginaAdminForm
     list_display = ('nombre', 'plantilla', 'es_activo', 'en_portada', 'en_menu', 'en_cabeza', 'en_pie', 'created_at_short', 'updated_at_short',)
     list_display_links = ('nombre',)
     ordering = ['parent', 'lft', 'nombre']
-    search_fields = ('nombre', 'titulo',)
+    search_fields = ('nombre',)
     
     prepopulated_fields = {'slug': ('nombre',)}
     
     fieldsets = [
-        (None, {'fields': [('nombre', 'titulo'), 'slug', 'plantilla', 'parent', 'es_activo', 'en_portada']}),
+        (None, {'fields': [('nombre'), 'slug', 'plantilla', 'parent', 'es_activo', 'en_portada']}),
         ('Contenido', {'fields': ['resumen', 'contenido']}),
         ('Botón de página', {
                         'classes': ('collapse',),
@@ -80,6 +85,7 @@ class PaginaAdmin(editor.TreeEditor):
     ]
 
     inlines = [
+    PrecioPaginaInline,
 	ImagenPaginaInline,
 	VideoPaginaInline,
 	ArchivoPaginaInline,

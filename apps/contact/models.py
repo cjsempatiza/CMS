@@ -35,7 +35,7 @@ class ContactConfig(models.Model):
     exito_titulo        = models.CharField(verbose_name=_(u'Título de la página de formulario enviado'), max_length=120)
     exito_texto         = models.TextField(verbose_name=_(u'Contenido'), blank=True,)
     exito_analytics     = models.TextField(verbose_name=_(u'Analytics de la página de formulario enviado'), blank=True,)
-    exito_imagen        = ImageField(_(u'Imagen de la página de formulario enviado'), blank=True, upload_to='contacto')
+    exito_imagen        = ImageField(_(u'Imagen de la página de formulario enviado'), blank=True, upload_to='contacto',help_text=_(u'Dimensión: 960x380'))
     
     analytics_contacto  = models.TextField(verbose_name=_(u'Analytics del botón de formulario de contacto completo'), blank=True,)
     analytics_contactame = models.TextField(verbose_name=_(u'Analytics del botón de formulario de contacto rápido'), blank=True,)
@@ -79,25 +79,25 @@ class Message(models.Model):
         verbose_name_plural = _(u'Mensajes recibidos')
 
     def save(self, *args, **kwargs):
-        #current_site    = Site.objects.get_current()
-        #config          = Configuracion.objects.get(id=1)
-        #subject         = render_to_string('contact/emails/contact-subject.txt', {'message': self, 'site_name': current_site.name})
-        #text_content    = render_to_string('contact/emails/contact-body-text.txt', {'message': self, 'current_site': current_site })
-        #html_content    = render_to_string('contact/emails/contact-body-html.html', {'message': self,'current_site': current_site })
+        current_site    = Site.objects.get_current()
+        config          = Configuracion.objects.get(id=1)
+        subject         = render_to_string('contact/emails/contact-subject.txt', {'message': self, 'site_name': current_site.name})
+        text_content    = render_to_string('contact/emails/contact-body-text.txt', {'message': self, 'current_site': current_site })
+        html_content    = render_to_string('contact/emails/contact-body-html.html', {'message': self,'current_site': current_site })
 
-        #sender          = 'no-responder@%s' % current_site.domain
-        #recipients      = [self.email,]
-        #cco             = [n.email for n in config.notificationemail_set.all()]
+        sender          = 'no-responder@%s' % current_site.domain
+        recipients      = [self.email,]
+        cco             = [n.email for n in config.notificationemail_set.all()]
     
-        ## mail bonito a visitante con copia a managers
-        #msg = EmailMultiAlternatives(subject, text_content, sender, recipients, bcc=cco)
-        #msg.attach_alternative(html_content, "text/html")
-        #msg.send()
+        # mail bonito a visitante con copia a managers
+        msg = EmailMultiAlternatives(subject, text_content, sender, recipients, bcc=cco)
+        msg.attach_alternative(html_content, "text/html")
+        msg.send()
 
         super(Message, self).save(*args, **kwargs) # Call the "real" save() method.
 
     def __unicode__(self):
-        return _(u'Mensaje de %(name)s el %(date)s') % {'name': self.name, 'date': self.date}
+        return _(u'Mensaje de %(name)s el %(date)s') % {'name': self.nombre, 'date': self.fecha}
 
 
 class Response(models.Model):

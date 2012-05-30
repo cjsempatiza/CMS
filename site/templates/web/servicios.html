@@ -5,41 +5,117 @@
 {% endblock %}
 
 {% block content %}
-<div class="centro_fondo">
-    <div id="centro">
-        {# <h1 class="h1_derecha"><strong><span class="azul">g</span><span class="rojo">o</span><span class="amarillo">o</span><span class="azul">g</span><span class="verde">l</span><span class="rojo">e</span> analytics</strong></h1> #}
-        {% if object.main_image %}<img class="h1_derecha" src="{{ object.main_image.imagen.url }}" alt="{{ object.main_image.titulo }}" >{% endif %}
-
-        <div class="migas">
-            <a href="{% url index %}">Home</a> &gt; 
-            {% for a in object.get_ancestors %}
-                <a href="{{ a.get_absolute_url }}">{{ a.nombre }}</a> &gt; 
-            {% empty %}
-                <span>{{ object.nombre }}</span>
+<div class="cuerpo">
+	
+	<div id='cuerpo-banner' class='container'>
+		{% if object.main_header.imagen %}<img src="{{ object.main_header.imagen.url }}" alt="object.main_header.titulo" />{% endif %}
+		<h1>{{object.main_header.titulo}}</h1>
+		<h2>{{object.main_header.descripcion|safe}}</h2>
+	</div>
+	
+	<div class='cuerpo_cont'>
+	
+		<div class="breadcrumb">
+	        <a href="{% url index %}">Home</a> &gt; 
+	        {% for a in object.get_ancestors %}
+	            <a href="{{ a.get_absolute_url }}">{{ a.nombre }}</a> &gt; 
+	             {% if forloop.last %}
+                    <span>{{ object.nombre }}</span>
+                {% endif %}
+	        {% empty %}
+	            <span>{{ object.nombre }}</span>
+	        {% endfor %}
+	    </div>
+	    
+	    <div id='cat-menu'>
+	    	<ul>
+    		{% for pagina in menu_paginas %}
+    			<li>
+    			{% if pagina.get_absolute_url in request.path %}
+                <a class='current' href="{{ pagina.get_absolute_url }}">                	
+                	{% if pagina.cabeza_nom %}
+            			{{ pagina.cabeza_nom }}
+            		{% else %}
+            			{{ pagina.nombre }}
+            		{% endif %}
+                </a>
+                {% else %}
+                <a href="{{ pagina.get_absolute_url }}">
+                	{% if pagina.cabeza_nom %}
+            			{{ pagina.cabeza_nom }}
+            		{% else %}
+            			{{ pagina.nombre }}
+            		{% endif %}                	
+                </a>
+                {% endif %}
+                
+	                {% if pagina.get_absolute_url in request.path and pagina.hijos %}
+	                <ul>
+	                    {% for hijo in pagina.hijos %}
+	                    	{% if hijo.en_cabeza %}
+	                        	<li>
+	                        		<a href="{{ hijo.get_absolute_url }}">
+	                        		{% if hijo.cabeza_nom %}
+	                        			{{ hijo.cabeza_nom }}
+	                        		{% else %}
+	                        			{{ hijo.nombre }}
+	                        		{% endif %}
+	                        		</a>
+	                        	</li>
+	                        {% endif %}
+	                    {% endfor %}
+	                </ul>
+	                {% endif %}
+                </li>
             {% endfor %}
-        </div>
+    		</ul>
+	    </div>
+	    
+	    <div id='cat-cont'>
+	    	 <h2>{{ object.nombre }}</h2>
+	    	 {{ object.contenido|safe }}
+	    </div>
 
-        <h1 class="h1_izquierda">{{ object.nombre }}</h1>
-
-        <h2>{{ object.titulo }}</h2>
-
-        <div class="texto">
-            {{ object.contenido|safe }}
-
-            <div class="botonera">
-                <div>
-                        {% for pagina in object.hijos %}
-                        <a href="{{ pagina.get_absolute_url }}" class="boton boton_naranja">{{ pagina.nombre }}</a>
-                        {% endfor %}
-                        {% comment %}
-                        {% if object.get_previous_sibling %}<a href="{{ object.get_previous_sibling.get_absolute_url }}" class="boton boton_naranja boton_izquierda">{{ object.get_previous_sibling.nombre }}</a>{% endif %}
-                        {% if object.get_next_sibling %}<a href="{{ object.get_next_sibling.get_absolute_url }}" class="boton boton_naranja boton_derecha">{{ object.get_next_sibling.nombre }}</a>{% endif %}
-                        {% endcomment %}
-                </div>
-            </div><!-- END .botonera -->
-        </div><!-- END .texto -->
-
-
-    </div><!-- END centro -->
-</div><!-- END centro_fondo -->
+		<div id='cat-right'>
+			{% if video %}
+				<div class='video'>					
+					<object type="application/x-shockwave-flash" data="http://www.youtube.com/v/{{ video.video }}" width="340" height="218">
+                		<param name="movie" value="http://www.youtube.com/v/{{ video.video }}" />
+                		<param name="FlashVars" value="playerMode=embedded" />
+                		<param name="wmode" value="transparent" />
+                	</object>
+				</div>
+			{% endif %}
+			
+			<div id="pag-testimonios">
+				{% if main_testi %}
+				<div class='cont'>					
+					{% with main_testi as testi %}						
+						<img src="{{testi.imagen.url}}" />
+						<div class='titulo'>{{testi.nombre}}</div>
+						<div class='titulo'>{{testi.persona}}</div>
+						<div class='titulo'>{{testi.categoria.nombre|upper}}</div>
+						<div class='texto'>{{testi.resumen|safe}}</div>
+					{% endwith %}
+				<div class='clear'></div>				
+				<a href='{% url testimonios %}'  class='vertodos'>{ver todos}</a>
+				{% endif %}
+			</div>
+			
+			<div class='clear'></div>
+			<div id="cat-valores">		
+				{% for valor in valores_portada %}
+				<div class='item'>
+					<p class='tit'>{{valor.titulo}}</p>
+					 {% if valor.main_image %}<img src="{{ valor.main_image.imagen.url }}" alt="{{ valor.main_image.titulo }}" >{% endif %}
+					{{valor.resumen|safe}}
+				</div>
+				{% endfor %}
+			</div>
+			
+		</div>	
+	    
+    </div>
+	
+</div>
 {% endblock %}

@@ -50,7 +50,7 @@ class Pagina(models.Model):
     """
 
     nombre      = models.CharField(verbose_name=_(u'Nombre (h1)'), max_length=60, unique=False, help_text=_(u'Nombre de la página. Debe ser corto'))
-    titulo      = models.CharField(verbose_name=_(u'Subtítulo (h2)'), max_length=120, unique=False, help_text=_(u'Subtítulo de la página. 120 caracteres máximo'))
+    titulo      = models.CharField(verbose_name=_(u'Subtítulo (h2)'), max_length=120, unique=False, blank=True, help_text=_(u'Subtítulo de la página. 120 caracteres máximo'))
     slug        = models.SlugField(_('Slug'), max_length=255, help_text=_(u'Valor único para la ruta a la página. Creado a partir del nombre.'))
 
     resumen     = models.TextField(verbose_name=_(u'Resumen'), help_text=_(u'Resumen de la página, utilizado como entradilla'))
@@ -62,8 +62,8 @@ class Pagina(models.Model):
     
     en_menu     = models.BooleanField(_(u'En menu'), default=False)
     menu_nom    = models.CharField(_(u'Nombre en menú'), max_length=255, blank=True, null=True)
-    en_cabeza   = models.BooleanField(_(u'En cabecera'), default=False)
-    cabeza_nom  = models.CharField(_(u'Nombre en cabecera'), max_length=255, blank=True, null=True)
+    en_cabeza   = models.BooleanField(_(u'En menu lateral'), default=False)
+    cabeza_nom  = models.CharField(_(u'Nombre en menu lateral'), max_length=255, blank=True, null=True)
     en_pie      = models.BooleanField(_(u'En pie'), default=False)
     pie_nom     = models.CharField(_(u'Nombre en pie'), max_length=255, blank=True, null=True)
     
@@ -195,7 +195,7 @@ except mptt.AlreadyRegistered:
 class ImagenPagina(models.Model):
     pagina      = models.ForeignKey(Pagina, verbose_name=_(u'Página'), related_name='images')
     orden       = models.IntegerField(_(u'Orden'), default=0, help_text=_(u'Orden en el que se mostrará'))
-    imagen      = ImageField(_(u'Imagen'), upload_to='web/pagina')
+    imagen      = ImageField(_(u'Imagen'), upload_to='web/pagina', help_text=_(u'Servicios y Valores: ancho máx 80px - Banner cabecera página: Alto:85px' ))
     titulo      = models.CharField(verbose_name=_(u'Título'), max_length=120, unique=True, help_text=_(u'Título de la imagen'))
     descripcion = models.TextField(_(u'Descripción'), help_text=_(u'Descripción de la imagen'), blank=True, null=True)
     es_cabecera = models.BooleanField(_(u'Cabecera'), default=False, help_text=_(u'Indica si la imagen se utilizará como cabecera de la página'))
@@ -250,3 +250,14 @@ class NamedURLSitemap(Sitemap):
 
     def location(self, obj):
         return reverse(obj)
+    
+class PrecioPagina(models.Model):
+    pagina      = models.ForeignKey(Pagina, verbose_name=_(u'Página'), related_name='precios')
+    orden       = models.IntegerField(_(u'Orden'), default=0, help_text=_(u'Orden en el que se mostrará'))
+    detalle     = models.CharField(verbose_name=_(u'Detalle'), max_length=80, unique=True, help_text=_(u'Detalle del servicio'))
+    precio      = models.FloatField(_(u'Precio'), default=0, help_text=_(u'Importe del Servicio'))
+
+    class Meta:
+        verbose_name = _(u'Precio de página')
+        verbose_name_plural = _(u'Precios de página')
+        ordering = ['orden',]
