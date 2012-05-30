@@ -1,0 +1,74 @@
+<div id='falda'>
+	
+	<div class='caja-gris'>
+		<span class='titulo'>estudios y reflexiones</span>
+		<div id='estyref'>
+			{% load i18n feeds %}
+			{% if conf.blog_rss2 %}
+			<div class='cont'>
+				{% with rss=conf.blog_rss2 %}
+		            {% include_feed rss 1 blog.html %}
+		        {% endwith %}
+			</div>
+			{% endif %}
+		</div>
+	</div>
+	
+	<div class='caja-dcha'>
+	
+		<div id='home-sellos'>
+			<span class='titulo'>sellos de calidad</span>
+			<ul>
+				{% if sellos %}
+					{% for sello in sellos %}
+					<li><center>
+                    	{% if sello.imagen %}<img src='{{sello.imagen.url}}' alt='{{sello.nombre}}' />{% endif %}
+                    	</center>
+                    </li>
+                    {% endfor %}       
+				{% endif %}
+			</ul>
+		</div>
+		
+		<div id='contacto_rapido-box'>
+			<div class='cont'>
+			<form action="{% url index %}" method="post" class="contacto_rapido">
+				<span class='titulo'>¿hablamos?</span>
+                {% csrf_token %}
+                {% if quick_form.errors.nombre %}<p>{{ quick_form.errors.nombre.0 }}</p>{% endif %}
+                <label for="{{ quick_form.nombre.auto_id }}" class="none">{{ quick_form.nombre.label }}</label>
+                {{ quick_form.nombre }}
+                {% if quick_form.errors.telefono %}<p>{{ quick_form.errors.telefono.0 }}</p>{% endif %}
+                <label for="{{ quick_form.telefono.auto_id }}" class="none">{{ quick_form.telefono.label }}</label>
+                {{ quick_form.telefono }}
+                {% if quick_form.errors.email %}<p>{{ quick_form.errors.email.0 }}</p>{% endif %}
+                <label for="{{ quick_form.email.auto_id }}" class="none">{{ quick_form.email.label }}</label>
+                {{ quick_form.email }}
+                
+                {% comment %}
+                {% if quick_form.errors.mensaje %}<p>{{ quick_form.errors.mensaje.0 }}</p>{% endif %}
+                <label for="{{ quick_form.mensaje.auto_id }}" class="none">{{ quick_form.mensaje.label }}</label>
+                {{ quick_form.mensaje }}                
+                {% endcomment %}
+                <input type="hidden" name="mensaje" value="Contacto rápido" />
+                
+                {% if quick_form.errors.condiciones %}<p>{{ quick_form.errors.condiciones.0 }}</p>{% endif %}
+                {{ quick_form.condiciones }}
+                <label id="label_condiciones" for="{{ quick_form.condiciones.auto_id }}">{{ quick_form.condiciones.label|safe }}</label>
+                
+                <input class="btn_send" type="submit" value="Llamadme!" {% if contact.analytics_contactame %}{{ contact.analytics_contactame|safe }}{% endif %}/>
+                <input type="hidden" name="url" value="{{ request.path }}" />
+            </form><!-- END .contacto-rapido -->
+
+            <div class="contacto_thanks" style="display: none; ">
+                <h2 class="title-big">gracias por <br/> confiar en nosotros </h2>
+                <div class="formu-txt">
+                    <p>En breve nos <br/>pondremos en contacto <br/>contigo</p>
+                </div>
+            </div>
+			</div>
+		</div>
+	
+	</div>
+	
+</div>
