@@ -190,3 +190,10 @@
 	background: orange;
 	border: 0;
 }
+
+.linkedin-btn {
+	display: block;
+	width: 100px;
+	height: 30px;
+	background: url(../img/linkedin.png) left top no-repeat;
+}

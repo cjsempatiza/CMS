@@ -52,7 +52,7 @@ def departamentos(request, slug):
                     'departamentos'     : departamentos,
                     'departamento'      : departamento,
 				    'equipos'           : equipos,
-                    'quienes'           : quienes,
+                    'object'           : quienes,
 				    'c'                 : c,
 				},
 				context_instance = RequestContext(request))

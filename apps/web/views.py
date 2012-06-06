@@ -183,11 +183,11 @@ def paginas(request, path):
     except:
          video = None
          
-    if not video:
-        try:
-            video = object.parent.videos.all()[0]
-        except:
-            video = None
+    #if not video:
+    #    try:
+    #        video = object.parent.videos.all()[0]
+    #    except:
+    #        video = None
          
     try:
         main_testi = object.testimonios_set.filter(es_activo=True).order_by('?')[0]

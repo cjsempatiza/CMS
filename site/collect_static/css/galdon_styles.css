@@ -5,6 +5,12 @@
 /* FONTS ******/
 @import url(http://fonts.googleapis.com/css?family=Telex);
 
+@import url(http://fonts.googleapis.com/css?family=Droid+Sans);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans);
+@import url(http://fonts.googleapis.com/css?family=Ubuntu);
+@import url(http://fonts.googleapis.com/css?family=PT+Sans);
+
+
 /* GENERICOS ******/
 body {
 	background-color: #f6f4f4;
@@ -256,13 +262,14 @@ a {
 	font-size: 13px;
 	line-height: 14px;
 }
-#cat-cont ul {
+#cat-cont > ul {
 	list-style: none;
 }
-#cat-cont ul > li {
+#cat-cont > ul > li {
 	float: left;
 	margin: 0;
 }
+
 #cat-cont h2 {
 	color: #71277A;
 	font-size: 18px;
@@ -280,11 +287,22 @@ a {
 	line-height: 20px;
 }
 
-#cat-cont a {
+#cat-cont a.descubre {
 	display: block;
 	clear: both;
 	color: #71277A;
 	margin: -20px 0 15px 5px;
+}
+
+#pag-contenido ul {
+	color: #545A5F;	
+	list-style: disc;
+	margin-left: 20px;
+}
+
+#pag-contenido ul li {
+	height: 18px;
+	margin: 0px;
 }
 
 .estatica {
@@ -323,7 +341,7 @@ a {
 #cat-right .video {
 	float: left;
 	width: 240px;
-	height: 120px;
+	height: 150px;
 }
 
 #cat-testimonios {
@@ -839,7 +857,6 @@ a {
 	height: 58px;
 	
 	font-size: 14px;
-	font-family: Telex;
 }
 
 #menu-main ul {
@@ -1087,12 +1104,16 @@ a {
 #testi-list {
 	list-style: none;
 }
-#testi-list li {
+#testi-list .titulo {
+	color: #1b232a;
+}
+#testi-list > li {
 	float: left;
 	width: 90%;
 	min-height: 50px;
 	border-bottom: 1px solid #5F6A72;
 	padding-top: 5px;
+	color: #5F6A72 !important;
 }
 #testi-list li .izq {
 	display: block;
@@ -1101,7 +1122,7 @@ a {
 	height: auto;
 }
 #testi-list p {
-	line-height: 12px;
+	
 }
 #testi-list li img {
 	display: block;
@@ -1115,7 +1136,8 @@ a {
 #quienes li {
 	float: left;
 	width: 120px;
-	height: 200px;
+	min-height: 200px;
+	height: auto;
 	margin-bottom: 10px;
 	margin-right: 20px;
 	overflow: hidden;
@@ -1136,7 +1158,7 @@ a {
 	float: left;
 	width: 190px;
 	min-height: 280px;
-	margin-right: 100px;
+	margin-right: 100px !important;
 	overflow: hidden;
 }
 #tuto-list li .tit {
@@ -1152,25 +1174,32 @@ a {
 
 a.file-btn {
 	display: block;
-	width: 100px;
-	height: 20px;
+	margin-top: 40px !important;
+	width: 210px;
+	height: 18px;
 	font-size: 12px;
+	font-weight: bold;
 	color: #FFFFFF !important;
-	background:url(../img/file-btn.png) no-repeat;
+	background: #494949 url(../img/file-btn.png) right top no-repeat;
 	text-decoration: none;
+	text-align: center;
 	padding-top: 4px;
+	-webkit-border-radius: 5px;
+  	-moz-border-radius: 5px;  
 }
 a.info-btn {
+	display: block;
 	width: 231px;
 	height: 29px;
-	margin-top: 20px !important;
-	padding: 8px 0 0 12px;
+	margin-top: 40px !important;
+	margin-bottom: 50px !important;
+	padding-top: 8px;
 	
 	font-size: 18px;
 	color: #FFFFFF !important;
 	
 	text-decoration: none;
-	display: block;
+	text-align: center;
 	background:url(../img/info-btn.png) no-repeat;
 }
 
@@ -1187,14 +1216,27 @@ ul.sitemap-list > li {
 }
 
 #tprecios {
+	display: block;
+	margin-top: 30px;
 	width: 300px;
-}
-#tprecios td {
-	height: 20px;
 	color: #545A5F;
 }
+#tprecios td {
+	color: #545A5F;
+	padding: 2px;
+}
+
+#tprecios tr:nth-child(even) td {
+	background-color: #A1A7AB;
+	color: #1B232A;
+}
 #tprecios .det {
-	width: 180px;
+	display: block;
+	min-width: 320px;
+	width: auto;
+	overflow: hidden;
+	margin-right: 30px;
+	
 	font-size: 14px;
 	font-weight: bold;
 	color: #1B232A;
@@ -1203,4 +1245,11 @@ ul.sitemap-list > li {
 	font-size: 14px;
 	font-weight: bold;
 	color: #1B232A;
+}
+
+.titulo-gris {
+	display: block;
+	font-size: 15px;
+	color: #545A5F;
+	margin-bottom: 10px;
 }

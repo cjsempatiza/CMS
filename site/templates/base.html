@@ -19,6 +19,7 @@
 <body>
 <div id='sombras'>
 <div id='cabecera' class='container'>
+	
 	<h1>                           
         <a href="{% url index %}">
             <img src="{{ conf.logo.url }}"  alt="{{ conf.titulo }}" />
@@ -141,8 +142,12 @@
 		//-- SUBMENU --
 		$('.menu-main-sub').hide();
 		var x_max = $('.container').width();
-		var b = parseInt($('.menu-main-sub').css('border-width'));
-		
+		var b = 2;
+		if( $('.menu-main-sub').css("border-width") )
+		{
+			b = parseInt($('.menu-main-sub').css("border-width"));
+		}
+						
 		var fMenuMainOn = function(){
 			$('#menu-main ul > li > a').removeClass('current');
 			$(this).addClass('current');
@@ -160,7 +165,7 @@
 			sm = $(this).find('ul:first');
 			w = sm.width();
 			
-			offst = mx + (w-mw); 
+			offst = mx + (w-mw);
 						
 			if( offst > x_max )
 			{
@@ -173,9 +178,13 @@
 		};	
 		$('#menu-main > ul > li').mouseover( fMenuMainOn );
 		$('.menu-main-sub').mouseleave(function(){
-			$('.menu-main-sub').fadeOut();
+			$('.menu-main-sub').hide();
 			$('#menu-main ul > li > a').removeClass('current');
-		});		
+		});
+		$('#menu-main').mouseleave( function() {
+			$('.menu-main-sub').hide();
+			$('#menu-main ul > li > a').removeClass('current');
+		});
 		//-- SUBMENU.END --
 		
 		$("#clientes-list-c").jCarouselLite({

@@ -60,6 +60,11 @@
 	           			<span class='tit'>{{ equip.nombre }}</span>
 	           			<br/>
 	           			<span class='tit'>{{ equip.titulo }}</span>
+	           			{% if equip.direccion %}
+	           			<span class='tit'>
+	           				<a class='linkedin-btn' href='{{equip.direccion}}' alt='LinkedIn'>&nbsp;</a>
+	           			</span>
+	           			{% endif %}
 	           		</li>
 	            {% endfor %}
             {% else %}

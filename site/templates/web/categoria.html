@@ -81,7 +81,7 @@
                 
                 {{hijo.resumen|safe}}
                 
-                <a href='{{hijo.slug}}'>Descúbrelo &gt;&gt;</a>
+                <a href='{{hijo.slug}}' class='descubre'>Descúbrelo &gt;&gt;</a>
                 
                 </li>
             {% endfor %}
@@ -92,6 +92,7 @@
 		<div id='cat-right'>
 			{% if cat_testi %}
 			<div id="cat-testimonios">
+			
 			<div class='cont'>
 				<ul>
 					{% for testi in cat_testi %}
@@ -127,7 +128,7 @@
 					{% if valor.main_image.imagen %}<img src="{{ valor.main_image.imagen.url }}" alt="{{ valor.main_image.titulo }}" >{% endif %}
 					</div>
 					{{valor.resumen|safe}}
-					<a href='./{{valor.slug}}'>Descúbrelo &gt;&gt;</a>
+					<a href='./{{valor.slug}}' class='descubre'>Descúbrelo &gt;&gt;</a>
 				</li>
 				{% endfor %}
 				</ul>

@@ -71,8 +71,12 @@
 	    
 	    <div id='cat-cont'>
 	    	<h2>{{ object.nombre }}</h2>
+	    	<div class='clear'></div>
+	    	<div id='pag-contenido'>
 	    	{{ object.contenido|safe }}
-	    	 
+	    	</div>
+            
+            {% load humanize %}
 		    <div class='clear'></div>
 			{% if precios %}
 				<table id='tprecios'>
@@ -83,7 +87,13 @@
 				{% for precio in precios %}
 					<tr>
 						<td>{{precio.detalle}}</td>
-						<td>{{precio.precio}}&euro;</td>
+						<td>
+							{% if precio.precio == 0  %}
+								consúltanos
+							{% else %}
+								{{precio.precio|floatformat:0|intcomma }} &euro;
+							{% endif %}
+						</td>
 					</tr>
 				{% endfor %}
 				</table>
@@ -95,13 +105,16 @@
 			{% endif %}
 	    	 
 	    	<div class='clear'></div>
-	    	<a class='info-btn' href='{% url contact %}?p={{object.nombre}}'>Quiero mas información</a>
+	    	{% if object.boton_nombre %}
+	    	<a class='info-btn' href='{{object.boton_enlace}}?p={{object.nombre}}'>{{object.boton_nombre}}</a>
+	    	{% endif %}
 	    </div>
 
 		<div id='cat-right'>
+			<span class='titulo-gris'>vídeo presentación</span>
 			{% if video %}
 				<div class='video'>					
-					<object type="application/x-shockwave-flash" data="http://www.youtube.com/v/{{ video.video }}" width="340" height="218">
+					<object type="application/x-shockwave-flash" data="http://www.youtube.com/v/{{ video.video }}" width="240" height="150">
                 		<param name="movie" value="http://www.youtube.com/v/{{ video.video }}" />
                 		<param name="FlashVars" value="playerMode=embedded" />
                 		<param name="wmode" value="transparent" />
@@ -111,6 +124,7 @@
 			
 			{% if main_testi %}
 			<div id="pag-testimonios">
+				
 				<div class='cont'>					
 					{% with main_testi as testi %}
 						<div class='izq'>
@@ -141,7 +155,7 @@
 					{% if valor.main_image.imagen %}<img src="{{ valor.main_image.imagen.url }}" alt="{{ valor.main_image.titulo }}" >{% endif %}
 					</div>
 					{{valor.resumen|safe}}
-					<a href='./{{valor.slug}}'>Descúbrelo &gt;&gt;</a>
+					<a href='./{{valor.slug}}' class='descubre'>Descúbrelo &gt;&gt;</a>
 				</li>
 				{% endfor %}
 				</ul>

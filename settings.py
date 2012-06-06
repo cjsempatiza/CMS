@@ -100,6 +100,7 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'django.contrib.redirects',
     'django.contrib.sitemaps',
+    'django.contrib.humanize',
     'mptt',
     'south',
     'sorl.thumbnail',

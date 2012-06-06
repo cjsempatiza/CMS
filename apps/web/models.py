@@ -255,7 +255,7 @@ class PrecioPagina(models.Model):
     pagina      = models.ForeignKey(Pagina, verbose_name=_(u'Página'), related_name='precios')
     orden       = models.IntegerField(_(u'Orden'), default=0, help_text=_(u'Orden en el que se mostrará'))
     detalle     = models.CharField(verbose_name=_(u'Detalle'), max_length=80, unique=True, help_text=_(u'Detalle del servicio'))
-    precio      = models.FloatField(_(u'Precio'), default=0, help_text=_(u'Importe del Servicio'))
+    precio      = models.DecimalField(_(u'Precio'), default=0, max_digits=10, decimal_places=2, help_text=_(u'Importe del Servicio'))
 
     class Meta:
         verbose_name = _(u'Precio de página')
