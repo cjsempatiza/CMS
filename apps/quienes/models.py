@@ -97,4 +97,3 @@ class Equipo(models.Model):
         verbose_name = _(u'Equipo')
         verbose_name_plural = _(u'Equipo')
 
-        
