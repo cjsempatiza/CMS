@@ -7,11 +7,11 @@ Testimonios - {{ block.super }}
 
 {% block content %}
 <div class="cuerpo">
-	
+
 	<div id='cuerpo-banner' class='container'>
-		{% if object.main_header.imagen %}<img src="{{ object.main_header.imagen.url }}" alt="object.main_header.titulo" />{% endif %}
-		<h1>{{object.main_header.titulo}}</h1>
-		<h2>{{object.main_header.descripcion|safe}}</h2>
+		{% if testi_top.imagen %}<img src="{{ testi_top.imagen.url }}" alt="testi_top.titulo" />{% endif %}
+		<h1>{{testi_top.titulo}}</h1>
+		<h2>{{testi_top.resumen|safe}}</h2>
 	</div>
 	
 	<div class='cuerpo_cont'>

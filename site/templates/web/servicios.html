@@ -90,8 +90,10 @@
 			<div id="pag-testimonios">
 				{% if main_testi %}
 				<div class='cont'>					
-					{% with main_testi as testi %}						
-						<img src="{{testi.imagen.url}}" />
+					{% with main_testi as testi %}
+						{% if testi.imagen %}						
+							<img src="{{testi.imagen.url}}" />
+						{% endif %}
 						<div class='titulo'>{{testi.nombre}}</div>
 						<div class='titulo'>{{testi.persona}}</div>
 						<div class='titulo'>{{testi.categoria.nombre|upper}}</div>
