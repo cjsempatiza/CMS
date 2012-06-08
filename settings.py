@@ -113,18 +113,18 @@ INSTALLED_APPS = (
     'quienes',
     'slider',
     'social',
-    'testimonios',
+    #'testimonios',
     'web',
     'clientes',
-    'proyectos',
-    'newsletter',
+    #'proyectos',
+    #'newsletter',
     'feincms', #only to run collectstatic and find templates
 )
 
 WEB_TEMPLATES = (
     ('web/categoria.html', u'Categoria Main'),
-    ('web/servicios.html', u'Servicios Destacados'),
-    ('web/valores.html', u'Nuestros Valores'),
+    ('web/servicios.html', u'Servicios Destacados'),#puede ser igual a pagina.html
+    ('web/valores.html', u'Nuestros Valores'),#puede ser igual a pagina.html
     ('web/seccion.html', u'Sección'),
     ('web/pagina.html', u'Página'),
     ('web/estatica.html', u'Estática'),

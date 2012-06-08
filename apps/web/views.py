@@ -21,7 +21,7 @@ from django.core.mail import *
 from web.models import *
 from web.forms import *
 from slider.models import *
-from testimonios.models import Testimonios
+from testimonios.models import Testimonios, TestimoniosConfig
 from clientes.models import Cliente
 from proyectos.models import Proyecto
 from quienes.models import *
@@ -276,6 +276,11 @@ def testimonios(request):
         cat_list    = Pagina.objects.filter(es_activo=True, en_menu=True, plantilla='web/categoria.html').order_by('tree_id')
     except:
         cat_list = None
+        
+    try:
+        testi_top = TestimoniosConfig.objects.get()
+    except TestimoniosConfig.DoesNotExist:
+        testi_top = None
     
     if request.method == 'POST':
         post_value = request.POST.get('categoria',False)
@@ -300,6 +305,7 @@ def testimonios(request):
                                     'cat_list'   : cat_list,
                                     'testi_cat' : post_value,
                                     'pag_cat'   : pag_cat,
+                                    'testi_top' : testi_top,
                                 },
                                 context_instance = RequestContext(request))
     
@@ -312,6 +318,11 @@ def testimonios_cat(request, testi_cat):
         cat_list    = Pagina.objects.filter(es_activo=True, en_menu=True, plantilla='web/categoria.html').order_by('tree_id')
     except:
         cat_list = None
+        
+    try:
+        testi_top = TestimoniosConfig.objects.get()
+    except TestimoniosConfig.DoesNotExist:
+        testi_top = None
     
     try:
         pag_cat = Pagina.objects.filter(es_activo=True, slug=testi_cat).get()
@@ -328,6 +339,7 @@ def testimonios_cat(request, testi_cat):
                                     'cat_list'      : cat_list,
                                     'testi_cat' : testi_cat,
                                     'pag_cat'   : pag_cat,
+                                    'testi_top' : testi_top,
                                 },
                                 context_instance = RequestContext(request))
 

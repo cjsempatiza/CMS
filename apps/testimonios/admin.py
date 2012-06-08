@@ -17,7 +17,10 @@ admin.site.register(Testimonios, TestimoniosAdmin)
 
 
 class TestimoniosConfigAdmin(admin.ModelAdmin):
-
+    list_display = ('titulo',)
+    search_fields = ('titulo',)
+    ordering = ('titulo',)
+    
     class Media:
         js = ('js/tiny_mce/tiny_mce.js',
               'js/editores.js')
