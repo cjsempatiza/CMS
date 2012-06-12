@@ -3,16 +3,23 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/reset.css" />
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/galdon_styles.css" />
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/contacto.css" />
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/inputs.css" />
-    <link rel="shortcut icon" href="{{ conf.favicon.url }}" />
+<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+<meta http-equiv="content-language" content="es-es"/>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    
+<meta name="keywords" content="{% block metakeywords %}{% for i in object.metatags.all %}{{ i.palabras_clave }}{% endfor %}{% endblock %}"/>
+<meta name="description" content="{% block metadescription %}{% for i in object.metatags.all %}{{ i.descripcion }}{% endfor %}{% endblock %}"/>
+<meta name="robots" content="{% block metarobots %}{% for i in object.metatags.all %}{{ i.get_robots_display }}{% endfor %}{% endblock %}"/>
+{% if conf.alexa %}<meta name="alexaVerifyID" content="{{ conf.alexa }}"/>{% endif %}
+
+<link rel="stylesheet" href="{{ STATIC_URL }}css/reset.css" />
+<link rel="stylesheet" href="{{ STATIC_URL }}css/galdon_styles.css" />
+<link rel="stylesheet" href="{{ STATIC_URL }}css/contacto.css" />
+<link rel="stylesheet" href="{{ STATIC_URL }}css/inputs.css" />
+
+<link rel="shortcut icon" type="image/x-icon" href="{{ conf.favicon.url }}"/>
 	
     <title>{% block title %}{{ conf.titulo }}{% endblock %}</title>
 </head>

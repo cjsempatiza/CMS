@@ -49,9 +49,11 @@
 			<div class='izq'>
 			{% if serv.main_image.imagen %}<img src="{{ serv.main_image.imagen.url }}" alt="{{ serv.main_image.titulo }}" />{% endif %}
 			</div>
+			<div class='izq2'>
 			{{serv.resumen|safe}}
 			
 			<a class='enlacep' href='./{{serv.slug}}'>Descúbrelo &gt;&gt;</a>
+			</div>
 		</div>
 		{% endfor %}
 		
@@ -65,9 +67,11 @@
 			<p class='tit'>{{valor.titulo}}</p>
 			<div class='izq'>
 			{% if valor.main_image.imagen %}<img src="{{ valor.main_image.imagen.url }}" alt="{{ valor.main_image.titulo }}" />{% endif %}
-			</div>			
+			</div>
+			<div class='izq2'>
 			{{valor.resumen|safe}}
 			<a class='enlacep' href='./{{valor.slug}}'>Descúbrelo &gt;&gt;</a>
+			</div>
 		</div>
 		{% endfor %}
 	</div>
@@ -95,7 +99,10 @@
 			{% if conf.blog_rss %}
 			<div class='cont'>
 				{% with rss=conf.blog_rss %}
-		            {% include_feed rss 1 blog.html %}
+		            {% load cache %}
+					{% cache 10 blog %}
+			            {% include_feed rss 1 blog.html %}
+			        {% endcache %}
 		        {% endwith %}
 			</div>
 			{% endif %}

@@ -1,5 +1,5 @@
-{% load cache %}
-{% cache 10 blog %}
+
+	{% if items %}
     <ul>
         {% for entry in items %}
             <li class="blog">
@@ -10,4 +10,4 @@
             </li>
         {% endfor %}
     </ul>
-{% endcache %}
+    {% endif %}

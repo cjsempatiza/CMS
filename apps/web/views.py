@@ -169,7 +169,7 @@ def paginas(request, path):
     #    menu_paginas        = Pagina.objects.filter(es_activo=True, parent=None, plantilla=object.plantilla).order_by('tree_id')
     
     try:
-        menu_paginas    = Pagina.objects.filter(es_activo=True, parent=None, plantilla='web/categoria.html').order_by('tree_id')
+        menu_paginas = Pagina.objects.filter(es_activo=True, parent=None, plantilla='web/categoria.html').order_by('tree_id')
     except:
         menu_paginas = None
    
@@ -181,7 +181,7 @@ def paginas(request, path):
     try:
         video = object.videos.all()[0]
     except:
-         video = None
+        video = None
          
     #if not video:
     #    try:
@@ -193,6 +193,13 @@ def paginas(request, path):
         main_testi = object.testimonios_set.filter(es_activo=True).order_by('?')[0]
     except:
         main_testi = None
+        
+    if not main_testi:
+        try:
+            p = Pagina.objects.filter(es_activo=True, parent=None, slug=parent_slug)
+            main_testi = Testimonios.objects.filter(es_activo=True,pagina=p).order_by('?')[0]
+        except:
+            main_testi = None
         
     try:
         file = object.files.all()[0]
@@ -273,7 +280,7 @@ def testimonios(request):
     Vista de listado de testimonios
     '''
     try:
-        cat_list    = Pagina.objects.filter(es_activo=True, en_menu=True, plantilla='web/categoria.html').order_by('tree_id')
+        cat_list    = Pagina.objects.filter(es_activo=True, en_menu=True).order_by('tree_id')
     except:
         cat_list = None
         
@@ -315,7 +322,7 @@ def testimonios_cat(request, testi_cat):
     '''
     
     try:
-        cat_list    = Pagina.objects.filter(es_activo=True, en_menu=True, plantilla='web/categoria.html').order_by('tree_id')
+        cat_list = Pagina.objects.filter(es_activo=True, en_menu=True).order_by('tree_id')
     except:
         cat_list = None
         

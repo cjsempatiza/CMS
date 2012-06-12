@@ -36,7 +36,7 @@ def departamentos(request, slug):
     '''
     
     try:
-        quienes = Quienes.objects.get()
+        quienes = Quienes.objects.get().order_by('orden')
     except:
         quienes = None
 
@@ -63,7 +63,7 @@ def departamentos(request, slug):
 def quienes(request):
     """ Mapa web con enlaces a todas las páginas públicas """
 
-    equipos = Equipo.objects.filter(es_activo=True).order_by('departamento')
+    equipos = Equipo.objects.filter(es_activo=True).order_by('orden')
     departamentos = Departamento.objects.filter(es_activo=True).order_by('orden')
     
     try:

@@ -4,12 +4,12 @@
 
 /* FONTS ******/
 @import url(http://fonts.googleapis.com/css?family=Telex);
-
+/*
 @import url(http://fonts.googleapis.com/css?family=Droid+Sans);
 @import url(http://fonts.googleapis.com/css?family=Open+Sans);
 @import url(http://fonts.googleapis.com/css?family=Ubuntu);
 @import url(http://fonts.googleapis.com/css?family=PT+Sans);
-
+*/
 
 /* GENERICOS ******/
 body {
@@ -140,9 +140,15 @@ a {
 
 #cuerpo-home .item > .izq {
 	float: left;
-	width: 40%;
+	width: 120px;
 	height: 140px;
 }
+#cuerpo-home .item > .izq2 {
+	float: left;
+	width: 300px;
+	height: 140px;
+}
+
 
 #cuerpo-home .tit {
 	font-size: 15px;
@@ -301,7 +307,8 @@ a {
 }
 
 #pag-contenido ul li {
-	height: 18px;
+	min-height: 18px;
+	height: auto;
 	margin: 0px;
 }
 
@@ -1136,17 +1143,13 @@ a {
 }
 #quienes li {
 	float: left;
-	width: 120px;
-	min-height: 300px;
+	width: 140px;
+	min-height: 250px;
 	height: auto;
-	margin-right: 30px;
 	overflow: hidden;
+	margin-left: 20px !important;
 }
-#quienes li .izq {
-	display: block;
-	height: 120px;
-	margin: 0 auto;
-}
+
 #quienes li img {
 	display: block;
 }

@@ -87,8 +87,9 @@
 				</div>
 			{% endif %}
 			
+			{% if main_testi %}
 			<div id="pag-testimonios">
-				{% if main_testi %}
+				
 				<div class='cont'>					
 					{% with main_testi as testi %}						
 						{% if testi.imagen %}						
@@ -101,8 +102,9 @@
 					{% endwith %}
 				<div class='clear'></div>				
 				<a href='{% url testimonios %}'  class='vertodos'>{ver todos}</a>
-				{% endif %}
+				
 			</div>
+			{% endif %}
 			
 			<div class='clear'></div>
 			<div id="cat-valores">		

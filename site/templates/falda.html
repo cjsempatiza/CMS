@@ -1,5 +1,4 @@
 <div id='falda'>
-	
 	<div class='caja-gris'>
 		<span class='titulo'>estudios y reflexiones</span>
 		<div id='estyref'>
@@ -7,7 +6,10 @@
 			{% if conf.blog_rss2 %}
 			<div class='cont'>
 				{% with rss=conf.blog_rss2 %}
+				{% load cache %}
+				{% cache 10 blog2 %}
 		            {% include_feed rss 1 blog.html %}
+		        {% endcache %}
 		        {% endwith %}
 			</div>
 			{% endif %}

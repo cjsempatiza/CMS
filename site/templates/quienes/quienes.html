@@ -9,9 +9,15 @@
 <div class="cuerpo">
 	
 	<div id='cuerpo-banner' class='container'>
-		{% if object.imagen %}<img src="{{ object.imagen.url }}" alt="object.titulo" />{% endif %}
-		<h1>{{object.titulo}}</h1>
-		<h2>{{object.resumen|safe}}</h2>
+		{% if departamento %}
+			{% if departamento.imagen %}<img src="{{ departamento.imagen.url }}" alt="departamento.titulo" />{% endif %}
+			<h1>{{departamento.titulo}}</h1>
+			<h2>{{departamento.resumen|safe}}</h2>
+		{% else %}
+			{% if object.imagen %}<img src="{{ object.imagen.url }}" alt="object.titulo" />{% endif %}
+			<h1>{{object.titulo}}</h1>
+			<h2>{{object.resumen|safe}}</h2>
+		{% endif %}
 	</div>
 	
 	<div class='cuerpo_cont'>
@@ -50,13 +56,13 @@
 	    	{% if equipos %}
 		    	{% for equip in equipos %}
 	           		<li>
-	           			<div class='izq'>
+	           			
 	           			{% if equip.imagen %}
 		           			{% thumbnail equip.imagen "78x110" as img %}
 		           			<img src="{{ img.url }}" width="{{ img.width }}" height="{{ img.height }}" />
 	                        {% endthumbnail %}
 	           			{% endif %}
-	           			</div>
+	           			
 	           			<span class='tit'>{{ equip.nombre }}</span>
 	           			<br/>
 	           			<span class='tit'>{{ equip.titulo }}</span>
