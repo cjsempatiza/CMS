@@ -13,9 +13,11 @@ class Migration(SchemaMigration):
                       self.gf('django.db.models.fields.TextField')(default=0, max_length=100),
                       keep_default=False)
 
+
     def backwards(self, orm):
         # Deleting field 'Testimonios.resumen'
         db.delete_column('testimonios_testimonios', 'resumen')
+
 
     models = {
         'contenttypes.contenttype': {

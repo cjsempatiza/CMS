@@ -14,6 +14,7 @@ class Migration(SchemaMigration):
         # Deleting field 'TestimoniosConfig.texto_lat'
         db.delete_column('testimonios_testimoniosconfig', 'texto_lat')
 
+
     def backwards(self, orm):
 
         # User chose to not deal with backwards NULL issues for 'TestimoniosConfig.titulo_lat'
@@ -22,6 +23,7 @@ class Migration(SchemaMigration):
         db.add_column('testimonios_testimoniosconfig', 'texto_lat',
                       self.gf('django.db.models.fields.TextField')(default='', blank=True),
                       keep_default=False)
+
 
     models = {
         'contenttypes.contenttype': {
@@ -87,7 +89,7 @@ class Migration(SchemaMigration):
             'resumen': ('django.db.models.fields.TextField', [], {}),
             'rght': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True'}),
             'slug': ('django.db.models.fields.SlugField', [], {'max_length': '255'}),
-            'titulo': ('django.db.models.fields.CharField', [], {'max_length': '120', 'blank': 'True'}),
+            'titulo': ('django.db.models.fields.CharField', [], {'max_length': '120'}),
             'tree_id': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True'})
         }
     }

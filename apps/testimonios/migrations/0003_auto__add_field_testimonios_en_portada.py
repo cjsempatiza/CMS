@@ -13,9 +13,11 @@ class Migration(SchemaMigration):
                       self.gf('django.db.models.fields.BooleanField')(default=True),
                       keep_default=False)
 
+
     def backwards(self, orm):
         # Deleting field 'Testimonios.en_portada'
         db.delete_column('testimonios_testimonios', 'en_portada')
+
 
     models = {
         'catalog.brand': {

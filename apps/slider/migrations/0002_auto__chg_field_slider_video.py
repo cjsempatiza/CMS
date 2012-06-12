@@ -11,10 +11,12 @@ class Migration(SchemaMigration):
 
         # Changing field 'Slider.video'
         db.alter_column('slider_slider', 'video', self.gf('django.db.models.fields.CharField')(max_length=256, null=True))
+
     def backwards(self, orm):
 
         # Changing field 'Slider.video'
         db.alter_column('slider_slider', 'video', self.gf('django.db.models.fields.TextField')(default=''))
+
     models = {
         'contenttypes.contenttype': {
             'Meta': {'ordering': "('name',)", 'unique_together': "(('app_label', 'model'),)", 'object_name': 'ContentType', 'db_table': "'django_content_type'"},

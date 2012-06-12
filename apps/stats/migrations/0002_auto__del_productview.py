@@ -11,6 +11,7 @@ class Migration(SchemaMigration):
         # Deleting model 'ProductView'
         db.delete_table('stats_productview')
 
+
     def backwards(self, orm):
         # Adding model 'ProductView'
         db.create_table('stats_productview', (
@@ -22,6 +23,7 @@ class Migration(SchemaMigration):
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
         ))
         db.send_create_signal('stats', ['ProductView'])
+
 
     models = {
         

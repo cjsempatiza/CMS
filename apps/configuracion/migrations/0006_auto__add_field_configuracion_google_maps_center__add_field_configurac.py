@@ -18,12 +18,14 @@ class Migration(SchemaMigration):
                       self.gf('django.db.models.fields.IntegerField')(default=5, blank=True),
                       keep_default=False)
 
+
     def backwards(self, orm):
         # Deleting field 'Configuracion.google_maps_center'
         db.delete_column('configuracion_configuracion', 'google_maps_center')
 
         # Deleting field 'Configuracion.google_maps_zoom'
         db.delete_column('configuracion_configuracion', 'google_maps_zoom')
+
 
     models = {
         'configuracion.configuracion': {

@@ -322,7 +322,7 @@ def testimonios_cat(request, testi_cat):
     '''
     
     try:
-        cat_list = Pagina.objects.filter(es_activo=True, en_menu=True).order_by('tree_id')
+        cat_list    = Pagina.objects.filter(es_activo=True, en_menu=True).order_by('tree_id')
     except:
         cat_list = None
         
